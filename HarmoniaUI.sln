@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36327.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmoniaUI.Godot", "HarmoniaUI.Godot.csproj", "{F9BB0590-494B-4B37-8BC2-1341E6A41D20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmoniaUI.Library", "library\HarmoniaUI.Library.csproj", "{1D5C626C-AF50-FF47-5FB1-B43798E2C201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmoniaUI.Tests", "tests\HarmoniaUI.Tests.csproj", "{BE1951DB-DEC8-AF84-1A17-E266CBA899B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9BB0590-494B-4B37-8BC2-1341E6A41D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9BB0590-494B-4B37-8BC2-1341E6A41D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9BB0590-494B-4B37-8BC2-1341E6A41D20}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{F9BB0590-494B-4B37-8BC2-1341E6A41D20}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{F9BB0590-494B-4B37-8BC2-1341E6A41D20}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{F9BB0590-494B-4B37-8BC2-1341E6A41D20}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{1D5C626C-AF50-FF47-5FB1-B43798E2C201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D5C626C-AF50-FF47-5FB1-B43798E2C201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D5C626C-AF50-FF47-5FB1-B43798E2C201}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{1D5C626C-AF50-FF47-5FB1-B43798E2C201}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{1D5C626C-AF50-FF47-5FB1-B43798E2C201}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{1D5C626C-AF50-FF47-5FB1-B43798E2C201}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{BE1951DB-DEC8-AF84-1A17-E266CBA899B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1951DB-DEC8-AF84-1A17-E266CBA899B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1951DB-DEC8-AF84-1A17-E266CBA899B7}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{BE1951DB-DEC8-AF84-1A17-E266CBA899B7}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{BE1951DB-DEC8-AF84-1A17-E266CBA899B7}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{BE1951DB-DEC8-AF84-1A17-E266CBA899B7}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
