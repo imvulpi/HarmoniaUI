@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8i2dbmkyxwl0"]
+
+[ext_resource type="Script" uid="uid://v88o005jjb5o" path="res://Entry.cs" id="1_rixl5"]
+[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="2_2bro8"]
+[ext_resource type="Script" uid="uid://bk4udk1yb62r7" path="res://library/style/StyleResource.cs" id="3_40af7"]
+
+[sub_resource type="Resource" id="Resource_2bro8"]
+script = ExtResource("3_40af7")
+Visibility = 0
+SizingType = 0
+Width = ""
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0.15, 0.15, 0.15, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffset = Vector2(0, 0)
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[node name="Entry" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rixl5")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_2bro8")
+StyleResource = SubResource("Resource_2bro8")
+
+[node name="Label" type="Label" parent="Control"]
+clip_contents = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 21.0
+offset_right = 173.0
+offset_bottom = 75.0
+text = "LOLLOLOLO"
+vertical_alignment = 1
