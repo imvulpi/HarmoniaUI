@@ -1,14 +1,14 @@
-namespace HarmoniaUI.Library.style
+namespace HarmoniaUI.library.core.types
 {
     /// <summary>
-    /// Describes size and unit of each sides with <see cref="StyleValue.Value"/> and <see cref="StyleValue.Unit"/>
+    /// Describes size and unit of each sides with <see cref="Value"/> and <see cref="Unit"/>
     /// </summary>
     /// <remarks>
     /// Supports any shape with 4 sides ._. (...)
     /// </remarks>
-    public struct RectSides
+    public struct StyleSides
     {
-        public RectSides(StyleValue top, StyleValue right, StyleValue bottom, StyleValue left)
+        public StyleSides(int top, int right, int bottom, int left)
         {
             Left = left;
             Right = right;
@@ -19,7 +19,7 @@ namespace HarmoniaUI.Library.style
         /// <summary>
         /// Sets Top and Bottom to <paramref name="topAndBottom"/> and Right and Left to <paramref name="rightAndLeft"/>
         /// </summary>
-        public RectSides(StyleValue topAndBottom, StyleValue rightAndLeft)
+        public StyleSides(int topAndBottom, int rightAndLeft)
         {
             Left = rightAndLeft;
             Right = rightAndLeft;
@@ -30,7 +30,7 @@ namespace HarmoniaUI.Library.style
         /// <summary>
         /// Sets Right and Left to <paramref name="rightAndLeft"/> and others normally
         /// </summary>
-        public RectSides(StyleValue top, StyleValue rightAndLeft, StyleValue bottom)
+        public StyleSides(int top, int rightAndLeft, int bottom)
         {
             Left = rightAndLeft;
             Right = rightAndLeft;
@@ -41,7 +41,7 @@ namespace HarmoniaUI.Library.style
         /// <summary>
         /// Sets all values to <paramref name="allSides"/>
         /// </summary>
-        public RectSides(StyleValue allSides) {
+        public StyleSides(int allSides) {
             Left = allSides;
             Right = allSides;
             Top = allSides;
@@ -49,28 +49,28 @@ namespace HarmoniaUI.Library.style
         }
 
         /// <summary>
-        /// Creates an instance with <see cref="StyleValue.Default"/> values
+        /// Creates an instance with <see cref="int.Default"/> values
         /// </summary>
-        public RectSides() { }
+        public StyleSides() { }
 
         /// <summary>
         /// Size and unit of the left side
         /// </summary>
-        public StyleValue Left { get; set; } = StyleValue.Default;
+        public int Left { get; set; } = 0;
 
         /// <summary>
         /// Size and unit of the right side
         /// </summary>
-        public StyleValue Right { get; set; } = StyleValue.Default;
+        public int Right { get; set; } = 0;
 
         /// <summary>
         /// Size and unit of the top side
         /// </summary>
-        public StyleValue Top { get; set; } = StyleValue.Default;
+        public int Top { get; set; } = 0;
 
         /// <summary>
         /// Size and unit of the bottom side
         /// </summary>
-        public StyleValue Bottom { get; set; } = StyleValue.Default;
+        public int Bottom { get; set; } = 0;
     }
 }

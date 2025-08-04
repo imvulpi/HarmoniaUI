@@ -1,4 +1,4 @@
-namespace HarmoniaUI.Library.style
+namespace HarmoniaUI.library.core.types
 {
     /// <summary>
     /// Defines what composes the size (width/height) of an element

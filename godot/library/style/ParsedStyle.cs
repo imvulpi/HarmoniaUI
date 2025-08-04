@@ -1,14 +1,15 @@
 using Godot;
-using HarmoniaUI.Library.style.parsing;
+using HarmoniaUI.library.core.types;
+using HarmoniaUI.library.core.types.parser;
 using System;
 
 namespace HarmoniaUI.Library.style
 {
     /// <summary>
-    /// Base style for harmonia nodes, parsed version of <see cref="StyleResource"/>
+    /// Style of which all values are pixels - parsed <see cref="StyleResource"/>
     /// </summary>
     /// <remarks>
-    /// Describes the visual and layout style for Harmonia nodes
+    /// Needs to be updated/reparsed when viewport size changes
     /// </remarks>
     public class ParsedStyle
     {
@@ -36,77 +37,77 @@ namespace HarmoniaUI.Library.style
         private SizingType _sizingType;
 
         /// <inheritdoc cref="Width"/>
-        private StyleValue _width;
+        private int _width;
 
         /// <inheritdoc cref="Height"/>
-        private StyleValue _height;
+        private int _height;
 
         /// <inheritdoc cref="MinHeight"/>
-        private StyleValue _minHeight;
+        private int _minHeight;
         
         /// <inheritdoc cref="MinWidth"/>
-        private StyleValue _minWidth;
+        private int _minWidth;
         
         /// <inheritdoc cref="MaxHeight"/>
-        private StyleValue _maxHeight;
+        private int _maxHeight;
 
         /// <inheritdoc cref="MaxWidth"/>
-        private StyleValue _maxWidth;
+        private int _maxWidth;
 
         /// <summary>
         /// Sizing type of the element.
         /// </summary>
-        public SizingType SizingType { get => _sizingType; set => Set(ref _sizingType, value, StyleChangeType.Layout); }
+        public SizingType SizingType { get => _sizingType; set => Set(ref _sizingType, value, StyleChangeType.Size); }
 
         /// <summary>
-        /// Width of the element (e.g. "100px", "50%", , leave empty for auto).
+        /// Width of the element
         /// </summary>
-        public StyleValue Width { get => _width; set => Set(ref _width, value, StyleChangeType.Layout); }
+        public int Width { get => _width; set => Set(ref _width, value, StyleChangeType.Size); }
 
         /// <summary>
-        /// Height of the element (e.g. "100px", "50%", , leave empty for auto).
+        /// Height of the element
         /// </summary>
-        public StyleValue Height { get => _height; set => Set(ref _height, value, StyleChangeType.Layout); }
+        public int Height { get => _height; set => Set(ref _height, value, StyleChangeType.Size); }
 
         /// <summary>
         /// Minimum width of the element.
         /// </summary>
-        public StyleValue MinWidth { get => _minWidth; set => Set(ref _minWidth, value, StyleChangeType.Layout); }
+        public int MinWidth { get => _minWidth; set => Set(ref _minWidth, value, StyleChangeType.Size); }
 
         /// <summary>
         /// Minimum height of the element.
         /// </summary>
-        public StyleValue MinHeight { get => _minHeight; set => Set(ref _minHeight, value, StyleChangeType.Layout); }
+        public int MinHeight { get => _minHeight; set => Set(ref _minHeight, value, StyleChangeType.Size); }
 
         /// <summary>
         /// Maximum width of the element.
         /// </summary>
-        public StyleValue MaxWidth { get => MaxWidth; set => Set(ref _maxWidth, value, StyleChangeType.Layout); }
+        public int MaxWidth { get => _maxWidth; set => Set(ref _maxWidth, value, StyleChangeType.Size); }
 
         /// <summary>
         /// Maximum height of the element.
         /// </summary>
-        public StyleValue MaxHeight { get => MaxHeight; set => Set(ref _maxHeight, value, StyleChangeType.Layout); }
+        public int MaxHeight { get => _maxHeight; set => Set(ref _maxHeight, value, StyleChangeType.Size); }
 
         #endregion
 
         #region Spacing
 
         /// <inheritdoc cref="Padding"/>
-        private RectSides _padding;
+        private StyleSides _padding;
 
         /// <inheritdoc cref="Margin"/>
-        private RectSides _margin;
+        private StyleSides _margin;
 
         /// <summary>
         /// Padding inside the element (space between content and border).
         /// </summary>
-        public RectSides Padding { get => _padding; set => Set(ref _padding, value, StyleChangeType.Layout); }
+        public StyleSides Padding { get => _padding; set => Set(ref _padding, value, StyleChangeType.Size); }
 
         /// <summary>
         /// Margin outside the element (space between element and siblings).
         /// </summary>
-        public RectSides Margin { get => _margin; set => Set(ref _margin, value, StyleChangeType.Layout); }
+        public StyleSides Margin { get => _margin; set => Set(ref _margin, value, StyleChangeType.Size); }
 
         #endregion
 
@@ -125,21 +126,21 @@ namespace HarmoniaUI.Library.style
         #region Border
 
         /// <inheritdoc cref="BorderRadius"/>
-        private RectSides _borderRadius;
+        private StyleSides _borderRadius;
         /// <inheritdoc cref="BorderWidth"/>
-        private StyleValue _borderWidth;
+        private StyleSides _borderWidth;
         /// <inheritdoc cref="BorderColor"/>
         private Color _borderColor;
 
         /// <summary>
         /// Radius for rounding corners (e.g. "8px", "50%").
         /// </summary>
-        public RectSides BorderRadius { get => _borderRadius; set => Set(ref _borderRadius, value, StyleChangeType.Border); }
+        public StyleSides BorderRadius { get => _borderRadius; set => Set(ref _borderRadius, value, StyleChangeType.Border); }
 
         /// <summary>
         /// Width of the border (e.g. "2px").
         /// </summary>
-        public StyleValue BorderWidth { get => _borderWidth; set => Set(ref _borderWidth, value, StyleChangeType.Border); }
+        public StyleSides BorderWidth { get => _borderWidth; set => Set(ref _borderWidth, value, StyleChangeType.Border); }
 
         /// <summary>
         /// Color of the border.
@@ -174,55 +175,66 @@ namespace HarmoniaUI.Library.style
         private PositionType _positioningType;
 
         /// <inheritdoc cref="PositionX" />
-        private StyleValue _positionX;
+        private int _positionX;
 
         /// <inheritdoc cref="PositionY" />
-        private StyleValue _positionY;
+        private int _positionY;
 
         /// <summary>
         /// Positioning mode: Normal (flow), Relative (offset), or Absolute (manual).
         /// </summary>
-        public PositionType PositioningType { get => _positioningType; set => Set(ref _positioningType, value, StyleChangeType.Positioning); }
+        public PositionType PositioningType { get => _positioningType; set => Set(ref _positioningType, value, StyleChangeType.Position); }
 
         /// <summary>
         /// Horizontal position offset (e.g. "10px", "50%") when Relative or Absolute.
         /// </summary>
-        public StyleValue PositionX { get => _positionX; set => Set(ref _positionX, value, StyleChangeType.Positioning); }
+        public int PositionX { get => _positionX; set => Set(ref _positionX, value, StyleChangeType.Position); }
 
         /// <summary>
         /// Vertical position offset (e.g. "10px", "50%") when Relative or Absolute.
         /// </summary>
-        public StyleValue PositionY { get => _positionY; set => Set(ref _positionY, value, StyleChangeType.Positioning); }
+        public int PositionY { get => _positionY; set => Set(ref _positionY, value, StyleChangeType.Position); }
 
         #endregion
 
         /// <summary>
-        /// Parses <see cref="StyleResource"/> and returns the result.
+        /// Updates all fields by parsing the <paramref name="rawStyle"/>
         /// </summary>
-        /// <param name="rawStyle">Unparsed style</param>
-        /// <returns>Parsed style</returns>
-        public static ParsedStyle From(StyleResource rawStyle)
+        /// <param name="rawStyle">Raw style resource</param>
+        /// <param name="viewportSize">Size of the viewport (width, height)</param>
+        /// <param name="parentSize">Size of the parent content (width, height)</param>
+        public void Update(StyleResource rawStyle, Vector2 viewportSize, Vector2 parentSize)
         {
-            return new ParsedStyle()
+            SizingType = rawStyle.SizingType;
+            Visibility = rawStyle.Visibility;
+            Width = StyleValueParser.Parse(rawStyle.Width, viewportSize, parentSize.X);
+            Height = StyleValueParser.Parse(rawStyle.Height, viewportSize, parentSize.Y);
+            MinWidth = StyleValueParser.Parse(rawStyle.MinWidth, viewportSize, parentSize.X);
+            MinHeight = StyleValueParser.Parse(rawStyle.MinHeight, viewportSize, parentSize.Y);
+            MaxWidth = StyleValueParser.Parse(rawStyle.MaxWidth, viewportSize, parentSize.X);
+            MaxHeight = StyleValueParser.Parse(rawStyle.MaxHeight, viewportSize, parentSize.Y);
+            Padding = StyleValueParser.ParseSides(rawStyle.Padding, viewportSize, parentSize);
+            Margin = StyleValueParser.ParseSides(rawStyle.Margin, viewportSize, parentSize);
+            BackgroundColor = rawStyle.BackgroundColor;
+            BorderColor = rawStyle.BorderColor;
+            BorderRadius = StyleValueParser.ParseSides(rawStyle.BorderRadius, viewportSize, parentSize);
+            BorderWidth = StyleValueParser.ParseSides(rawStyle.BorderWidth, viewportSize, parentSize);
+            ShadowColor = rawStyle.ShadowColor;
+            ShadowOffset = rawStyle.ShadowOffset;
+            PositioningType = rawStyle.PositioningType;
+            PositionX = StyleValueParser.Parse(rawStyle.PositionX, viewportSize, parentSize.X);
+            PositionY = StyleValueParser.Parse(rawStyle.PositionY, viewportSize, parentSize.Y);
+
+            // Maybe parser? \/
+            if(BorderWidth.Left == UnitConstants.AUTO)
             {
-                Width = StyleValueParser.Parse(rawStyle.Width),
-                Height = StyleValueParser.Parse(rawStyle.Height),
-                MinWidth = StyleValueParser.Parse(rawStyle.MinWidth),
-                MinHeight = StyleValueParser.Parse(rawStyle.MinHeight),
-                MaxWidth = StyleValueParser.Parse(rawStyle.MaxWidth),
-                MaxHeight = StyleValueParser.Parse(rawStyle.MaxHeight),
-                Padding = StyleValueParser.ParseRect(rawStyle.Padding),
-                Margin = StyleValueParser.ParseRect(rawStyle.Margin),
-                BackgroundColor = rawStyle.BackgroundColor,
-                BorderColor = rawStyle.BorderColor,
-                BorderRadius = StyleValueParser.ParseRect(rawStyle.BorderRadius),
-                BorderWidth = StyleValueParser.Parse(rawStyle.BorderWidth),
-                ShadowColor = rawStyle.ShadowColor,
-                ShadowOffset = rawStyle.ShadowOffset,
-                PositioningType = rawStyle.PositioningType,
-                PositionX = StyleValueParser.Parse(rawStyle.PositionX),
-                PositionY = StyleValueParser.Parse(rawStyle.PositionY)
-            };
+                BorderWidth = new StyleSides(0);
+            }
+
+            if (BorderRadius.Left == UnitConstants.AUTO)
+            {
+                BorderRadius = new StyleSides(0);
+            }
         }
 
         /// <summary>

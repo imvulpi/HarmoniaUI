@@ -3,11 +3,11 @@ namespace HarmoniaUI.Library.style
     public enum StyleChangeType
     {
         None = 0,
-        Layout,
+        Visibility,
+        Size,
         Background,
         Border,
         Shadow,
-        Positioning,
-        Visibility
+        Position,
     }
 }

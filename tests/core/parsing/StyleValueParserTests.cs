@@ -16,7 +16,7 @@ namespace HarmoniaUI.Tests.core.parsing
             Assertions.AssertFloat(styleValue.Value).Equals(10.0f);
         }
 
-        [TestCase("100px", Unit.Pixel, 113.0f)]
+        [TestCase("100px", Unit.Pixel, 100.0f)]
         [TestCase("-30px", Unit.Pixel, -30.0f)]
         [TestCase("0px", Unit.Pixel, 0.0f)]
         [TestCase("auto", Unit.Auto, 0.0f)]
@@ -29,18 +29,19 @@ namespace HarmoniaUI.Tests.core.parsing
         [TestCase("50vh", Unit.ViewportHeight, 0.5f)]
         [TestCase("-50vh", Unit.ViewportHeight, -0.5f)]
         [TestCase("0vh", Unit.ViewportHeight, 0.0f)]
+        [TestCase("", Unit.Auto, 0.0f)]
         public void Parsing_SingleValues_CorrectValue(string stringValue, Unit expectedUnit, float expectedValue)
         {
-            StyleValue styleValue = StyleValueParser.Parse("10px");
+            StyleValue styleValue = StyleValueParser.Parse(stringValue);
 
-            Assertions.AssertObject(styleValue.Unit).IsEqual(Unit.Pixel);
-            Assertions.AssertFloat(styleValue.Value).IsEqual(10.0f);
+            Assertions.AssertObject(styleValue.Unit).IsEqual(expectedUnit);
+            Assertions.AssertFloat(styleValue.Value).IsEqual(expectedValue);
         }
 
         [TestCase]
         public void Parsing_4ValueRect_Rect()
         {
-            RectSides rectSides = StyleValueParser.ParseRect("25px 50% 75vw 100vh");
+            StyleSides rectSides = StyleValueParser.ParseRect("25px 50% 75vw 100vh");
 
             Assertions.AssertObject(rectSides.Top.Unit).IsEqual(Unit.Pixel);
             Assertions.AssertFloat(rectSides.Top.Value).IsEqual(25);
@@ -55,7 +56,7 @@ namespace HarmoniaUI.Tests.core.parsing
         [TestCase]
         public void Parsing_3ValueRect_Rect()
         {
-            RectSides rectSides = StyleValueParser.ParseRect("25px 50% 75vw");
+            StyleSides rectSides = StyleValueParser.ParseRect("25px 50% 75vw");
 
             Assertions.AssertInt((int)rectSides.Top.Unit).IsEqual((int)Unit.Pixel);
             Assertions.AssertFloat(rectSides.Top.Value).IsEqual(25);
@@ -70,7 +71,7 @@ namespace HarmoniaUI.Tests.core.parsing
         [TestCase]
         public void Parsing_2ValueRect_Rect()
         {
-            RectSides rectSides = StyleValueParser.ParseRect("25px 50%");
+            StyleSides rectSides = StyleValueParser.ParseRect("25px 50%");
 
             Assertions.AssertObject(rectSides.Top.Unit).IsEqual(Unit.Pixel);
             Assertions.AssertFloat(rectSides.Top.Value).IsEqual(25);
@@ -85,7 +86,7 @@ namespace HarmoniaUI.Tests.core.parsing
         [TestCase]
         public void Parsing_1ValueRect_Rect()
         {
-            RectSides rectSides = StyleValueParser.ParseRect("25px");
+            StyleSides rectSides = StyleValueParser.ParseRect("25px");
 
             Assertions.AssertObject(rectSides.Top.Unit).IsEqual(Unit.Pixel);
             Assertions.AssertFloat(rectSides.Top.Value).IsEqual(25);

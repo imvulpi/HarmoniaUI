@@ -1,4 +1,4 @@
-namespace HarmoniaUI.Library.style
+namespace HarmoniaUI.library.core.types
 {
     /// <summary>
     /// Describes the positioning type that will be used for a node
