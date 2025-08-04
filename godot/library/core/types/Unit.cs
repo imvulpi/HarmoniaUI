@@ -1,4 +1,4 @@
-namespace HarmoniaUI.Library.style
+namespace HarmoniaUI.library.core.types
 {
     /// <summary>
     /// Units of length that are supported by Harmonia styles

@@ -1,4 +1,6 @@
 using Godot;
+using HarmoniaUI.library.core.types;
+using HarmoniaUI.library.style;
 
 namespace HarmoniaUI.Library.style
 {
@@ -18,7 +20,17 @@ namespace HarmoniaUI.Library.style
         /// </summary>
         [ExportSubgroup("Behaviour")]
         [Export]
-        public VisibilityType Visibility { get; set; }
+        public VisibilityType Visibility { get; set; } = VisibilityType.Visible;
+
+        /// <summary>
+        /// Data for layout engines, also used to choose the engine
+        /// </summary>
+        [Export] public LayoutResource LayoutResource { get; set; } = null;
+
+        /// <summary>
+        /// Data for visual engines, also used to choose the engine
+        /// </summary>
+        [Export] public VisualResource VisualResource { get; set; } = null;
 
         #endregion
 
@@ -28,7 +40,7 @@ namespace HarmoniaUI.Library.style
         /// Sizing type of the element.
         /// </summary>
         [ExportSubgroup("Size")]
-        [Export] public SizingType SizingType { get; set; }
+        [Export] public SizingType SizingType { get; set; } = SizingType.Border;
 
         /// <summary>
         /// Width of the element (e.g. "100px", "50%", , leave empty for auto).
@@ -84,7 +96,7 @@ namespace HarmoniaUI.Library.style
         /// Background color of the element.
         /// </summary>
         [ExportSubgroup("Background")]
-        [Export] public Color BackgroundColor = new Color(0.15f, 0.15f, 0.15f);
+        [Export] public Color BackgroundColor = new Color(0f, 0f, 0f, 0f);
 
         #endregion
 
@@ -104,7 +116,7 @@ namespace HarmoniaUI.Library.style
         /// <summary>
         /// Color of the border.
         /// </summary>
-        [Export] public Color BorderColor = Colors.Transparent;
+        [Export] public Color BorderColor;
 
         #endregion
 
