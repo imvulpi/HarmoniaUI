@@ -1,8 +1,6 @@
 using Godot;
-using HarmoniaUI.library.core.types;
 using HarmoniaUI.library.nodes;
-using HarmoniaUI.Library.style;
-using System.Runtime.InteropServices.Marshalling;
+using HarmoniaUI.library.style;
 
 namespace HarmoniaUI.library.core.visual
 {
@@ -12,7 +10,7 @@ namespace HarmoniaUI.library.core.visual
     public class BaseVisualEngine : IVisualEngine
     {
         protected StyleBoxFlat CurrentStyleBox;
-        public virtual void Draw(UINode node, ParsedStyle style)
+        public virtual void Draw(UINode node, ComputedStyle style)
         {
             if (style == null) return;
             CurrentStyleBox = HarmoniaDefaults.GetEmptyStylebox();
@@ -26,7 +24,7 @@ namespace HarmoniaUI.library.core.visual
         /// <summary>
         /// Draws the background of the harmonia node
         /// </summary>
-        protected virtual void DrawBackground(UINode node, ParsedStyle style)
+        protected virtual void DrawBackground(UINode node, ComputedStyle style)
         {
             CurrentStyleBox.BgColor = style.BackgroundColor;
         }
@@ -34,20 +32,20 @@ namespace HarmoniaUI.library.core.visual
         /// <summary>
         /// Draws the border of the harmonia node using border radius and width
         /// </summary>
-        protected virtual void DrawBorder(UINode node, ParsedStyle style)
+        protected virtual void DrawBorder(UINode node, ComputedStyle style)
         {
             var borderRadius = style.BorderRadius;
-            CurrentStyleBox.CornerRadiusTopLeft = borderRadius.Top;
-            CurrentStyleBox.CornerRadiusTopRight = borderRadius.Right;
-            CurrentStyleBox.CornerRadiusBottomLeft = borderRadius.Bottom;
-            CurrentStyleBox.CornerRadiusBottomRight = borderRadius.Left;
+            CurrentStyleBox.CornerRadiusTopLeft = (int)borderRadius.Top;
+            CurrentStyleBox.CornerRadiusTopRight = (int)borderRadius.Right;
+            CurrentStyleBox.CornerRadiusBottomLeft = (int)borderRadius.Bottom;
+            CurrentStyleBox.CornerRadiusBottomRight = (int)borderRadius.Left;
             CurrentStyleBox.BorderColor = style.BorderColor;
 
             var borderWidth = style.BorderWidth;
-            CurrentStyleBox.BorderWidthTop = borderWidth.Top;
-            CurrentStyleBox.BorderWidthLeft = borderWidth.Left;
-            CurrentStyleBox.BorderWidthBottom = borderWidth.Bottom;
-            CurrentStyleBox.BorderWidthRight = borderWidth.Right;
+            CurrentStyleBox.BorderWidthTop = (int)borderWidth.Top;
+            CurrentStyleBox.BorderWidthLeft = (int)borderWidth.Left;
+            CurrentStyleBox.BorderWidthBottom = (int)borderWidth.Bottom;
+            CurrentStyleBox.BorderWidthRight = (int)borderWidth.Right;
         }
     }
 }

@@ -24,6 +24,16 @@ namespace HarmoniaUI.library.core.types
         Percent,
 
         /// <summary>
+        /// Percentage explicitly relative to parent width
+        /// </summary>
+        WidthPercent,
+
+        /// <summary>
+        /// Percentage explicitly relative to parent height
+        /// </summary>
+        HeightPercent,
+
+        /// <summary>
         /// Viewport width (vw) - the percentage of viewport width
         /// </summary>
         ViewportWidth,

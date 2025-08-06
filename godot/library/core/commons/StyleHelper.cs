@@ -1,6 +1,6 @@
 using Godot;
 using HarmoniaUI.library.core.types;
-using HarmoniaUI.Library.style;
+using HarmoniaUI.library.style;
 
 namespace HarmoniaUI.library.core.commons
 {
@@ -14,7 +14,7 @@ namespace HarmoniaUI.library.core.commons
         /// Simply gets padding from left and right
         /// </summary>
         /// <returns>Padding from Left + Right</returns>
-        public static float GetPaddingX(ParsedStyle style, Vector2 viewportSize, float parentXSize)
+        public static float GetPaddingX(ComputedStyle style)
         {
             return style.Padding.Left + style.Padding.Right;
         }
@@ -23,7 +23,7 @@ namespace HarmoniaUI.library.core.commons
         /// Simply gets padding from top and bottom
         /// </summary>
         /// <returns>Padding from Top + Bottom</returns>
-        public static float GetPaddingY(ParsedStyle style, Vector2 viewportSize, float parentYSize)
+        public static float GetPaddingY(ComputedStyle style)
         {
             return style.Padding.Top + style.Padding.Bottom;
         }
@@ -32,7 +32,7 @@ namespace HarmoniaUI.library.core.commons
         /// Simply gets border width from left and right
         /// </summary>
         /// <returns>Border width from Left + Right</returns>
-        public static float GetBorderWidthX(ParsedStyle style, Vector2 viewportSize, float parentXSize)
+        public static float GetBorderWidthX(ComputedStyle style)
         {
             return style.BorderWidth.Left + style.BorderWidth.Right;
         }
@@ -41,7 +41,7 @@ namespace HarmoniaUI.library.core.commons
         /// Simply gets border width from top and bottom
         /// </summary>
         /// <returns>Border width from Top + Bottom</returns>
-        public static float GetBorderWidthY(ParsedStyle style, Vector2 viewportSize, float parentYSize)
+        public static float GetBorderWidthY(ComputedStyle style)
         {
             return style.BorderWidth.Top + style.BorderWidth.Bottom;
         }
@@ -52,7 +52,7 @@ namespace HarmoniaUI.library.core.commons
         /// <param name="measurement">Measurement to get value from</param>
         /// <param name="parentSide">Side of the parent related to <paramref name="measurement"/></param>
         /// <returns>Pixel value; <paramref name="parentSide"/> otherwise</returns>
-        public static float ComputeDimension(int measurement, float parentSide, Vector2 viewportSize)
+        public static float ComputeDimension(float measurement, float parentSide)
         {
             if (measurement == UnitConstants.AUTO)
                 return parentSide;
@@ -66,7 +66,7 @@ namespace HarmoniaUI.library.core.commons
         /// <param name="measurement">Measurement to get value from</param>
         /// <param name="parentSide">Side of the parent related to <paramref name="measurement"/></param>
         /// <returns>Pixel value; <see cref="float.MaxValue"/> otherwise</returns>
-        public static float ComputeMaxDimension(int measurement, float parentSide, Vector2 viewportSize)
+        public static float ComputeMaxDimension(float measurement)
         {
             if (measurement == UnitConstants.AUTO)
                 return float.MaxValue;
