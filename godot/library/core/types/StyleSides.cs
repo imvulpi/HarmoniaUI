@@ -1,3 +1,6 @@
+
+using Godot;
+
 namespace HarmoniaUI.library.core.types
 {
     /// <summary>
@@ -6,9 +9,9 @@ namespace HarmoniaUI.library.core.types
     /// <remarks>
     /// Supports any shape with 4 sides ._. (...)
     /// </remarks>
-    public struct StyleSides
+    public struct StyleSides<T> where T : struct
     {
-        public StyleSides(int top, int right, int bottom, int left)
+        public StyleSides(T top, T right, T bottom, T left)
         {
             Left = left;
             Right = right;
@@ -19,7 +22,7 @@ namespace HarmoniaUI.library.core.types
         /// <summary>
         /// Sets Top and Bottom to <paramref name="topAndBottom"/> and Right and Left to <paramref name="rightAndLeft"/>
         /// </summary>
-        public StyleSides(int topAndBottom, int rightAndLeft)
+        public StyleSides(T topAndBottom, T rightAndLeft)
         {
             Left = rightAndLeft;
             Right = rightAndLeft;
@@ -30,7 +33,7 @@ namespace HarmoniaUI.library.core.types
         /// <summary>
         /// Sets Right and Left to <paramref name="rightAndLeft"/> and others normally
         /// </summary>
-        public StyleSides(int top, int rightAndLeft, int bottom)
+        public StyleSides(T top, T rightAndLeft, T bottom)
         {
             Left = rightAndLeft;
             Right = rightAndLeft;
@@ -41,7 +44,7 @@ namespace HarmoniaUI.library.core.types
         /// <summary>
         /// Sets all values to <paramref name="allSides"/>
         /// </summary>
-        public StyleSides(int allSides) {
+        public StyleSides(T allSides) {
             Left = allSides;
             Right = allSides;
             Top = allSides;
@@ -49,28 +52,28 @@ namespace HarmoniaUI.library.core.types
         }
 
         /// <summary>
-        /// Creates an instance with <see cref="int.Default"/> values
+        /// Creates an instance with <see cref="T.Default"/> values
         /// </summary>
         public StyleSides() { }
 
         /// <summary>
         /// Size and unit of the left side
         /// </summary>
-        public int Left { get; set; } = 0;
+        public T Left { get; set; }
 
         /// <summary>
         /// Size and unit of the right side
         /// </summary>
-        public int Right { get; set; } = 0;
+        public T Right { get; set; }
 
         /// <summary>
         /// Size and unit of the top side
         /// </summary>
-        public int Top { get; set; } = 0;
+        public T Top { get; set; }
 
         /// <summary>
         /// Size and unit of the bottom side
         /// </summary>
-        public int Bottom { get; set; } = 0;
+        public T Bottom { get; set; }
     }
 }

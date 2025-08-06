@@ -1,13 +1,13 @@
-namespace HarmoniaUI.Library.style
+using System;
+
+namespace HarmoniaUI.library.style
 {
+    [Flags]
     public enum StyleChangeType
     {
         None = 0,
-        Visibility,
-        Size,
-        Background,
-        Border,
-        Shadow,
-        Position,
+        Redraw = 1,
+        Relayout = 2,
+        Other = 4,
     }
 }

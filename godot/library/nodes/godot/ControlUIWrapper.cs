@@ -17,7 +17,6 @@ namespace HarmoniaUI.library.nodes.godot
             ParsedStyle = new(); // Does this work?
         }
 
-
         private readonly Control _primitive;
 
         /// TODO? Conditional compilation to remove this from release?
@@ -27,12 +26,12 @@ namespace HarmoniaUI.library.nodes.godot
         {
             get
             {
-                if (_primitive == null) return 0;
+                if (_primitive == null || !GodotObject.IsInstanceValid(_primitive)) return 0;
                 return _primitive.Size.X;
             } 
             set
             {
-                if(_primitive == null) return;
+                if(_primitive == null || !GodotObject.IsInstanceValid(_primitive)) return;
                 _primitive.Size = new(value, _primitive.Size.Y);
             }
         }
@@ -40,12 +39,12 @@ namespace HarmoniaUI.library.nodes.godot
         {
             get
             {
-                if(_primitive == null) return 0;
+                if(_primitive == null || !GodotObject.IsInstanceValid(_primitive)) return 0;
                 return _primitive.Size.Y;
             }
             set
             {
-                if(_primitive == null) return;
+                if(_primitive == null || !GodotObject.IsInstanceValid(_primitive)) return;
                 _primitive.Size = new(_primitive.Size.X, value);
             }
         }

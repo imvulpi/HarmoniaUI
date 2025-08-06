@@ -1,5 +1,5 @@
 using HarmoniaUI.library.nodes;
-using HarmoniaUI.Library.style;
+using HarmoniaUI.library.style;
 
 namespace HarmoniaUI.library.core.visual
 {
@@ -16,6 +16,6 @@ namespace HarmoniaUI.library.core.visual
         /// </summary>
         /// <param name="node">Node to render</param>
         /// <param name="style">Style to follow when rendering</param>
-        public void Draw(UINode node, ParsedStyle style);
+        public void Draw(UINode node, ComputedStyle style);
     }
 }
