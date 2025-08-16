@@ -1,0 +1,19 @@
+/*!
+ \namespace HarmoniaUI::Core::Engines
+ \brief Contains interfaces and implementations 
+ for the core layout and visual engines.
+ 
+ \details
+ This namespace provides the abstractions and default engines responsible for:
+  - Computing layout and positioning of UI nodes based on style resources.
+  - Rendering UI nodes by interpreting visual styles and drawing commands.
+
+ Layout engines implement the Layout.ILayoutEngine interface, allowing
+ arranging child nodes within their parent containers.
+
+ Visual engines implement the Visual.IVisualEngine interface, defining
+ how nodes are drawn within Godot's rendering pipeline.
+
+ Developers can extend or replace these engines to tailor layout and rendering
+ behaviors to specific application needs, enabling flexible and powerful UI design.
+*/

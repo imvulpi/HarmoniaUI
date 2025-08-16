@@ -1,0 +1,15 @@
+/*!
+ \namespace HarmoniaUI
+ \brief Main namespace that serves an organizational role.
+
+ \details
+ The main namespace acts as a container for other important namespaces, such as:
+ - \ref HarmoniaUI.Core "Core"
+ - \ref HarmoniaUI.Nodes "Nodes"
+
+ Its sole purpose is to provide structure and maintain order among these namespaces.
+ In practice, this namespace is not directly important, as it does not contain
+ any code of its own.
+
+ For more information about the project, visit the \ref index "Main Page".
+*/

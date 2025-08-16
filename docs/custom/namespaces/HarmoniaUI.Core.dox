@@ -1,0 +1,18 @@
+/*!
+ \namespace HarmoniaUI::Core
+ \brief The foundation layer of HarmoniaUI.
+
+ \details
+ The `Core` contains the essential classes, utilities, and systems that make
+ everything else possible - from managing the rendering of UI elements
+ to handling events and keeping the UI running smoothly.
+
+ Typical responsibilities of `Core` include:
+ - Registry of engines used in `Nodes`.
+ - Managing the layout and rendering.
+ - Handling data structures and utilities.
+ - Providing services to higher-level namespaces like `Nodes`.
+
+ You will use the core if you want to extend the library with
+ your custom nodes or engines
+*/

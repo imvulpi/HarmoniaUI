@@ -1,0 +1,187 @@
+[gd_scene load_steps=7 format=3 uid="uid://cv3a3xlugx7lh"]
+
+[ext_resource type="Script" uid="uid://clsl6vx4qpjvj" path="res://tests/utils/TestsRepo.cs" id="1_02at8"]
+[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="2_a5amm"]
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="3_jp3ji"]
+[ext_resource type="Script" uid="uid://bchvhrkl3by33" path="res://tests/utils/ColorTest.cs" id="4_jp3ji"]
+
+[sub_resource type="Resource" id="Resource_a5amm"]
+script = ExtResource("3_jp3ji")
+Visibility = 0
+SizingType = 0
+Width = ""
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0, 0, 0, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(0, 0, 0, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="Resource" id="Resource_jp3ji"]
+script = ExtResource("3_jp3ji")
+Visibility = 0
+SizingType = 0
+Width = "50%"
+Height = "50%"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0, 0, 0, 0)
+BorderRadius = "150px"
+BorderWidth = "12%"
+BorderColor = Color(1, 1, 1, 1)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[node name="BorderTest" type="Control" node_paths=PackedStringArray("TestNodes")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_02at8")
+TestNodes = [NodePath("ColorTest"), NodePath("ColorTest2"), NodePath("ColorTest3"), NodePath("ColorTest4"), NodePath("ColorTest5"), NodePath("ColorTest6"), NodePath("ColorTest7"), NodePath("ColorTest8")]
+
+[node name="UINode" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("2_a5amm")
+StyleResource = SubResource("Resource_a5amm")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="UINode" type="Control" parent="UINode"]
+anchors_preset = 0
+offset_right = 576.0
+offset_bottom = 324.0
+script = ExtResource("2_a5amm")
+StyleResource = SubResource("Resource_jp3ji")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="ColorTest" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 259.2
+offset_top = 12.96
+offset_right = 316.8
+offset_bottom = 45.36
+script = ExtResource("4_jp3ji")
+Width = "5vw"
+Height = "5vh"
+PositionX = "22.5vw"
+PositionY = "2vh"
+ExpectedColor = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://bchvhrkl3by33"
+
+[node name="ColorTest2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 259.2
+offset_top = 278.64
+offset_right = 316.8
+offset_bottom = 311.04
+script = ExtResource("4_jp3ji")
+Width = "5vw"
+Height = "5vh"
+PositionX = "22.5vw"
+PositionY = "43vh"
+ExpectedColor = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://bchvhrkl3by33"
+
+[node name="ColorTest3" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 46.08
+offset_top = 145.8
+offset_right = 69.12
+offset_bottom = 178.2
+script = ExtResource("4_jp3ji")
+Width = "2vw"
+Height = "5vh"
+PositionX = "4vw"
+PositionY = "22.5vh"
+ExpectedColor = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://bchvhrkl3by33"
+
+[node name="ColorTest4" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 506.88
+offset_top = 145.8
+offset_right = 529.92
+offset_bottom = 178.2
+script = ExtResource("4_jp3ji")
+Width = "2vw"
+Height = "5vh"
+PositionX = "44vw"
+PositionY = "22.5vh"
+ExpectedColor = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://bchvhrkl3by33"
+
+[node name="ColorTest5" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 564.48
+offset_top = 317.52
+offset_right = 576.0
+offset_bottom = 324.0
+script = ExtResource("4_jp3ji")
+Width = "1vw"
+Height = "1vh"
+PositionX = "49vw"
+PositionY = "49vh"
+ExpectedColor = Color(0, 0, 0, 1)
+metadata/_custom_type_script = "uid://bchvhrkl3by33"
+
+[node name="ColorTest6" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 564.48
+offset_right = 576.0
+offset_bottom = 6.48
+script = ExtResource("4_jp3ji")
+Width = "1vw"
+Height = "1vh"
+PositionX = "49vw"
+ExpectedColor = Color(0, 0, 0, 1)
+metadata/_custom_type_script = "uid://bchvhrkl3by33"
+
+[node name="ColorTest7" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 317.52
+offset_right = 11.52
+offset_bottom = 324.0
+script = ExtResource("4_jp3ji")
+Width = "1vw"
+Height = "1vh"
+PositionY = "49vh"
+ExpectedColor = Color(0, 0, 0, 1)
+metadata/_custom_type_script = "uid://bchvhrkl3by33"
+
+[node name="ColorTest8" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 11.52
+offset_bottom = 6.48
+script = ExtResource("4_jp3ji")
+Width = "1vw"
+Height = "1vh"
+ExpectedColor = Color(0, 0, 0, 1)
+metadata/_custom_type_script = "uid://bchvhrkl3by33"
