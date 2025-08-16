@@ -58,7 +58,7 @@ namespace HarmoniaUI.Core.Engines.Layout
                     if (childStyle.Visibility == VisibilityType.Hidden) continue;
                     if (childStyle.PositioningType == PositionType.Absolute)
                     {
-                        node.GlobalPosition = new Vector2(childStyle.PositionX, childStyle.PositionY);
+                        harmoniaNode.GlobalPosition = new Vector2(childStyle.PositionX, childStyle.PositionY);
                         continue; // Absolutes should not add any offsets.
                     }
 

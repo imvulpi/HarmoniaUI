@@ -46,8 +46,8 @@ namespace HarmoniaUI.Tests
             child1.ParsedStyle.Height = new StyleValue(400, Unit.Pixel);
             child2.ParsedStyle.Width = new StyleValue(0.25f, Unit.ViewportWidth);
             child2.ParsedStyle.Height = new StyleValue(0.2f, Unit.Percent);
-            testSubject.ParsedStyle.Width = new StyleValue(width, widthUnit);
-            testSubject.ParsedStyle.Height = new StyleValue(height, heightUnit);
+            testSubject.ParsedStyle.PositionX = new StyleValue(width, widthUnit);
+            testSubject.ParsedStyle.PositionY = new StyleValue(height, heightUnit);
             testSubject.ParsedStyle.PositioningType = PositionType.Normal;
 
             Vector2 expected = new(
@@ -56,6 +56,7 @@ namespace HarmoniaUI.Tests
             );
             
             Assertions.AssertVector(testSubject.GlobalPosition).IsEqual(expected);
+            Assertions.AssertVector(root.Position).IsEqual(Vector2.Zero);
         }
 
         /// <summary>
@@ -90,8 +91,8 @@ namespace HarmoniaUI.Tests
             child1.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
             testSubject.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
             testSubject.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
-            testSubject.ParsedStyle.Width = new StyleValue(posX, posXUnit);
-            testSubject.ParsedStyle.Height = new StyleValue(posY, posYUnit);
+            testSubject.ParsedStyle.PositionX = new StyleValue(posX, posXUnit);
+            testSubject.ParsedStyle.PositionY = new StyleValue(posY, posYUnit);
             testSubject.ParsedStyle.PositioningType = PositionType.Relative;
 
             Vector2 expected = new(
@@ -100,6 +101,7 @@ namespace HarmoniaUI.Tests
             );
             
             Assertions.AssertVector(testSubject.GlobalPosition).IsEqual(expected);
+            Assertions.AssertVector(root.Position).IsEqual(Vector2.Zero);
         }
 
         /// <summary>
@@ -134,8 +136,8 @@ namespace HarmoniaUI.Tests
             child1.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
             testSubject.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
             testSubject.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
-            testSubject.ParsedStyle.Width = new StyleValue(posX, posXUnit);
-            testSubject.ParsedStyle.Height = new StyleValue(posY, posYUnit);
+            testSubject.ParsedStyle.PositionX = new StyleValue(posX, posXUnit);
+            testSubject.ParsedStyle.PositionY = new StyleValue(posY, posYUnit);
             testSubject.ParsedStyle.PositioningType = PositionType.Absolute;
 
             Vector2 expected = new(
@@ -144,6 +146,7 @@ namespace HarmoniaUI.Tests
             );
             
             Assertions.AssertVector(testSubject.GlobalPosition).IsEqual(expected);
+            Assertions.AssertVector(root.Position).IsEqual(Vector2.Zero);
         }
     }
 }
