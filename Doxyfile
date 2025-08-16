@@ -1,0 +1,30 @@
+PROJECT_NAME = HarmoniaUI
+PROJECT_BRIEF = "Responsive, web-style UI, proven solutions."
+USE_MDFILE_AS_MAINPAGE = README.md
+
+ENABLED_SECTIONS = INTERNAL
+DOXYFILE_ENCODING      = UTF-8
+
+EXCLUDE = ./godot/addons ./godot/tests/gdunit
+INPUT = .
+FILE_PATTERNS = *.cs *.md *.dox
+MARKDOWN_SUPPORT = YES
+RECURSIVE = YES
+GENERATE_HTML = YES
+OUTPUT_DIRECTORY = docs
+HTML_OUTPUT = html
+
+EXTRACT_ALL = NO
+EXTRACT_STATIC = YES
+GENERATE_LATEX=NO
+
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_NO_PARAMDOC       = YES
+
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = NO
+HTML_EXTRA_STYLESHEET  = ./docs/theme/doxygen-awesome.css \
+                        ./docs/theme/doxygen-awesome-sidebar-only.css
+HTML_COLORSTYLE        = LIGHT

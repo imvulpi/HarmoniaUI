@@ -1,0 +1,18 @@
+/*!
+ \namespace HarmoniaUI::Core::Style
+ \brief Provides classes and resources related to styling within the HarmoniaUI library.
+
+ \details
+ This namespace includes the core style abstractions such as <see cref="StyleResource"/>,
+ <see cref="ParsedStyle"/>, and <see cref="ComputedStyle"/>, which collectively
+ enable a Web inspired styling system tailored for Harmonia UI nodes.
+
+ These classes handle:
+  - Parsing and representation of raw style data.
+  - Providing computed styles for layout and rendering engines.
+  - Storing style data and addon styles
+
+ The styling system is designed to be flexible and extensible,
+ allowing developers to customize visual appearance and layout behaviors
+ through easy to understand properties.
+*/

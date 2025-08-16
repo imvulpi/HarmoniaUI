@@ -1,0 +1,13 @@
+/*!
+ \namespace HarmoniaUI::Tests::Utils
+ \brief Utilities to be used in tests.
+
+ \details
+ Contains useful utilities not only for running tests, but for creating
+ new tests.
+
+ These are used to test or help testing visual, layout, and logical parts of the
+ HarmoniaUI code. Some classes allow easy creations of tests, while other define
+ values and contracts.
+
+*/

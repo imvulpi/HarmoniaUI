@@ -18,6 +18,17 @@ config/icon="res://icon.svg"
 
 project/assembly_name="HarmoniaUI"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
+[gdunit4]
+
+settings/test/test_lookup_folder="tests"
+settings/test/test_discovery=true
+ui/toolbar/run_overall=true
+report/godot/push_error=true
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
