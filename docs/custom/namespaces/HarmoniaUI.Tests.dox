@@ -1,0 +1,17 @@
+/*!
+ \namespace HarmoniaUI::Tests
+ \brief Test for verifying HarmoniaUI behaviour and maintainability.
+
+ \details
+ The `Tests` increase project maintainability,
+ Tests define rules for nodes and other parts of the code.
+ With tests developers can make changes or add features and 
+ verify they aren't breaking other parts of the code.
+
+ Tests aren't perfect, so bugs will still appear, but tests allow catching
+ some of the problems before any release.
+
+ The tests are written using <a href="https://github.com/MikeSchulze/gdUnit4">GDUnit4</a>
+ a popular unit testing framework for Godot. 
+
+*/

@@ -1,0 +1,14 @@
+/*!
+ \namespace HarmoniaUI::Commons
+ \brief Shared helper classes used in HarmoniaUI.
+
+ \details
+ The `Commons` contains helper and utility classes that help reduce the code
+ or make the code more maintainable.
+
+ That means `Commons` could be replaced without creating
+ many problems with how the library works.
+
+ Sometimes it provides a bit more performance, but usually it's about
+ maintainability, simplicity and reusing.
+*/

@@ -1,0 +1,26 @@
+/*!
+ \namespace HarmoniaUI::Nodes
+ \brief
+ Contains Harmonia UI Node classes that form
+ the foundation of the HarmoniaUI library. These nodes extend Godot's Control
+ nodes to provide styling, layout, and rendering.
+ \remarks
+ This namespace includes the base <see cref="UINode"/> class, which introduces
+ a Web inspired styling system, flexible layout management through pluggable
+ `LayoutEngine`, and customizable visual rendering via `VisualEngine`.
+ 
+ \details
+ Developers can extend these nodes to create custom UI components, leveraging
+ the styling and layout infrastructure built into HarmoniaUI. The namespace
+ supports seamless integration with Godot native controls by wrapping them
+ within <see cref="GodotUIWrapper"/> nodes.
+ 
+ Key features include:
+  - Style resources and computed styles for rich and easy UI customization.
+  - Layout engine abstraction for flexible positioning and sizing.
+  - Visual engine abstraction for customizable drawing logic.
+  - Hierarchy and parenting utilities tailored to UI composition.
+ 
+ This namespace is the core building blocks for easy construction of
+ sophisticated and performant UI systems within the Godot engine.
+*/

@@ -1,0 +1,25 @@
+var class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource =
+[
+    [ "BackgroundColor", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#af2523f5b5a117052eb1369f9d5b4269e", null ],
+    [ "BorderColor", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#ab4fb4122336074c927cf03fbb549949c", null ],
+    [ "BorderRadius", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#ad5ea47337a8d700eddd59a05a3f86809", null ],
+    [ "BorderWidth", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a0fae5a3fbe73bf9c84917dd6a8262937", null ],
+    [ "Height", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a9275635b3b224aab7db0f2a1b5eebf71", null ],
+    [ "LayoutResource", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a23bc6e811a2efdf477d58dcd76303360", null ],
+    [ "Margin", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a4dee0e7df4d4dcf493fc11271327833f", null ],
+    [ "MaxHeight", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#af472d5e6af1e775cb94f36fb33e1d067", null ],
+    [ "MaxWidth", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a48d33bae40b41b8031bae10f86a94d60", null ],
+    [ "MinHeight", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a5ef5a5bf1dc80d304547724339f7a3c6", null ],
+    [ "MinWidth", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a5354af85a38896f85c06064cd95db49d", null ],
+    [ "Padding", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a5b431aa964090cbfe7a9811e634e894e", null ],
+    [ "PositioningType", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a83d3a00d9172a9f8a824c73514741f69", null ],
+    [ "PositionX", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a4528406cf3bfa3336248e075f7e3f568", null ],
+    [ "PositionY", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a84c1becdcf575123adfa179a88719854", null ],
+    [ "ShadowColor", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a4a42b8b8e80abdc968a5a3bfa90cdddc", null ],
+    [ "ShadowOffsetX", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a1c5a8b9b800b69d1f5233544fac93337", null ],
+    [ "ShadowOffsetY", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#aa4e513cb0be4a6e90ed0d2eaff82974b", null ],
+    [ "SizingType", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a739389a011793f9ab0b72993ab64d5e7", null ],
+    [ "Visibility", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a128cc4d84e6099537b1a7b248c2c2a6a", null ],
+    [ "VisualResource", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#ae941fa58b55801c93a629c8e57e6722f", null ],
+    [ "Width", "class_harmonia_u_i_1_1_core_1_1_style_1_1_raw_1_1_style_resource.html#a61bc6affe920277635d5918651c50196", null ]
+];
