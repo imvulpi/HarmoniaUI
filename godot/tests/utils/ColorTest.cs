@@ -139,14 +139,12 @@ namespace HarmoniaUI.Tests.Utils
                     if (x < imageSize.X && y < imageSize.Y
                         && !image.GetPixel(x, y).IsEqualApprox(ExpectedColor))
                     {
-                        GD.Print($"failed {image.GetPixel(x,y)} != {ExpectedColor}");
                         FailTest();
                         return;
                     }
                 }
             }
 
-            GD.Print("passed");
             PassTest();
         }
 
