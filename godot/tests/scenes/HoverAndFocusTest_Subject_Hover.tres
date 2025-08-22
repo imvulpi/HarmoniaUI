@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="StyleResource" load_steps=2 format=3 uid="uid://cyalp7qe665ig"]
+
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="1_jnvht"]
+
+[resource]
+script = ExtResource("1_jnvht")
+Visibility = -1
+SizingType = -1
+Width = ""
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 1, 1, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(-1, -1, -1, -1)
+ShadowColor = Color(-1, -1, -1, -1)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = -1
+PositionX = ""
+PositionY = ""
+metadata/_custom_type_script = "uid://b3al2knqpp5q"

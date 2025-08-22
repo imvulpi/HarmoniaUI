@@ -47,7 +47,6 @@ namespace HarmoniaUI.Nodes
 
         private float preview_intervalMs = 50;
         private float preview_elapsedMs = 0;
-        private bool preview_initialized = false;
 
         // FOR EDITOR PREVIEW
         public override void _Process(double delta)
@@ -61,11 +60,10 @@ namespace HarmoniaUI.Nodes
                 // Weird situation in here, but when rebuilding all of the properties are nullified,
                 // We have to return in here because all children need to refresh before doing any layout stuff.
                 // DON'T DELETE!!! Only happens in editor
-                if (!preview_initialized)
+                if (VisualEngine == null)
                 {
                     Preview_EnterTree();
                     Preview_UpdateStyle();
-                    preview_initialized = true;
                 }
                 else
                 {

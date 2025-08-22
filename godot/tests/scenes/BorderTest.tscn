@@ -21,7 +21,7 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 script = ExtResource("2_a5amm")
-NormalStyle = ExtResource("3_rjpgi")
+RawNormalStyle = ExtResource("3_rjpgi")
 metadata/_custom_type_script = "uid://24cno45fapa6"
 
 [node name="Subject" type="Control" parent="SubParent"]
@@ -29,7 +29,7 @@ anchors_preset = 0
 offset_right = 576.0
 offset_bottom = 324.0
 script = ExtResource("2_a5amm")
-NormalStyle = ExtResource("4_rjpgi")
+RawNormalStyle = ExtResource("4_rjpgi")
 metadata/_custom_type_script = "uid://24cno45fapa6"
 
 [node name="ColorTest" type="Control" parent="."]

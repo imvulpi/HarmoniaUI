@@ -19,20 +19,11 @@ namespace HarmoniaUI.Core.Style.Raw
     [GlobalClass]
     public partial class StyleResource : Resource, IStyle<string, string>
     {
-        /// <summary>
-        /// Instance of color that signifies the exported property is unset.
-        /// This should result in a transparent color, but allows unset values.
-        /// </summary>
-        /// <remarks>
-        /// Reason: It's impossible to export nullables to editor.
-        /// </remarks>
-        public static readonly Color UnsetColor = new Color(-1, -1, -1, -1);
-
         #region Behaviour
 
         [ExportSubgroup("Behaviour")]
         [Export]
-        public VisibilityType Visibility { get; set; } = VisibilityType.Visible;
+        public VisibilityType Visibility { get; set; } = VisibilityType.Unset;
 
         /// <summary>
         /// A custom layout resource that will be used to retrieve a layout engine.
@@ -61,7 +52,7 @@ namespace HarmoniaUI.Core.Style.Raw
         #region Size
 
         [ExportSubgroup("Size")]
-        [Export] public SizingType SizingType { get; set; } = SizingType.Border;
+        [Export] public SizingType SizingType { get; set; } = SizingType.Unset;
         [Export] public string Width { get; set; } = string.Empty;
         [Export] public string Height { get; set; } = string.Empty;
         [Export] public string MinWidth { get; set; } = string.Empty;
@@ -82,7 +73,7 @@ namespace HarmoniaUI.Core.Style.Raw
         #region Background
 
         [ExportSubgroup("Background")]
-        [Export] public Color BackgroundColor { get; set; } = UnsetColor;
+        [Export] public Color BackgroundColor { get; set; } = StyleDefaults.UnsetColor;
 
         #endregion
 
@@ -91,14 +82,14 @@ namespace HarmoniaUI.Core.Style.Raw
         [ExportSubgroup("Border")]
         [Export] public string BorderRadius { get; set; } = string.Empty;
         [Export] public string BorderWidth { get; set; } = string.Empty;
-        [Export] public Color BorderColor { get; set; } = UnsetColor;
+        [Export] public Color BorderColor { get; set; } = StyleDefaults.UnsetColor;
 
         #endregion
 
         #region Shadow
 
         [ExportSubgroup("Shadow")]
-        [Export] public Color ShadowColor { get; set; } = UnsetColor;
+        [Export] public Color ShadowColor { get; set; } = StyleDefaults.UnsetColor;
         [Export] public string ShadowOffsetX { get; set; } = string.Empty;
         [Export] public string ShadowOffsetY { get; set; } = string.Empty; 
 
@@ -107,10 +98,23 @@ namespace HarmoniaUI.Core.Style.Raw
         #region Position
 
         [ExportSubgroup("Position")]
-        [Export] public PositionType PositioningType { get; set; } = PositionType.Normal;
+        [Export] public PositionType PositioningType { get; set; } = PositionType.Unset;
         [Export] public string PositionX { get; set; } = string.Empty;
         [Export] public string PositionY { get; set; } = string.Empty; 
 
         #endregion
+
+        public static StyleResource GetDefault()
+        {
+            return new()
+            {
+                Visibility = StyleDefaults.VISIBILITY_TYPE_DEFAULT,
+                SizingType = StyleDefaults.SIZING_TYPE_DEFAULT,
+                PositioningType = StyleDefaults.POSITION_TYPE_DEFAULT,
+                BackgroundColor = Colors.Transparent,
+                ShadowColor = Colors.Transparent,
+                BorderColor = Colors.Transparent,
+            };
+        }
     }
 }
