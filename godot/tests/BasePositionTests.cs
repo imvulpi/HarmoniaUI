@@ -39,16 +39,16 @@ namespace HarmoniaUI.Tests
             root.AddChild(testSubject);
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(1152, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(648, Unit.Pixel);
+            root.NormalStyle.Width = new StyleValue(1152, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(648, Unit.Pixel);
 
-            child1.ParsedStyle.Width = new StyleValue(0.5f, Unit.WidthPercent);
-            child1.ParsedStyle.Height = new StyleValue(400, Unit.Pixel);
-            child2.ParsedStyle.Width = new StyleValue(0.25f, Unit.ViewportWidth);
-            child2.ParsedStyle.Height = new StyleValue(0.2f, Unit.Percent);
-            testSubject.ParsedStyle.PositionX = new StyleValue(width, widthUnit);
-            testSubject.ParsedStyle.PositionY = new StyleValue(height, heightUnit);
-            testSubject.ParsedStyle.PositioningType = PositionType.Normal;
+            child1.NormalStyle.Width = new StyleValue(0.5f, Unit.WidthPercent);
+            child1.NormalStyle.Height = new StyleValue(400, Unit.Pixel);
+            child2.NormalStyle.Width = new StyleValue(0.25f, Unit.ViewportWidth);
+            child2.NormalStyle.Height = new StyleValue(0.2f, Unit.Percent);
+            testSubject.NormalStyle.PositionX = new StyleValue(width, widthUnit);
+            testSubject.NormalStyle.PositionY = new StyleValue(height, heightUnit);
+            testSubject.NormalStyle.PositioningType = PositionType.Normal;
 
             Vector2 expected = new(
                 0,
@@ -84,16 +84,16 @@ namespace HarmoniaUI.Tests
             root.AddChild(testSubject);
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(1152, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(648, Unit.Pixel);
+            root.NormalStyle.Width = new StyleValue(1152, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(648, Unit.Pixel);
 
-            child1.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child1.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
-            testSubject.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            testSubject.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
-            testSubject.ParsedStyle.PositionX = new StyleValue(posX, posXUnit);
-            testSubject.ParsedStyle.PositionY = new StyleValue(posY, posYUnit);
-            testSubject.ParsedStyle.PositioningType = PositionType.Relative;
+            child1.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child1.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            testSubject.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            testSubject.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            testSubject.NormalStyle.PositionX = new StyleValue(posX, posXUnit);
+            testSubject.NormalStyle.PositionY = new StyleValue(posY, posYUnit);
+            testSubject.NormalStyle.PositioningType = PositionType.Relative;
 
             Vector2 expected = new(
                 testSubject.ComputedStyle.PositionX,
@@ -129,16 +129,16 @@ namespace HarmoniaUI.Tests
             root.AddChild(testSubject);
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(1152, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(648, Unit.Pixel);
+            root.NormalStyle.Width = new StyleValue(1152, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(648, Unit.Pixel);
 
-            child1.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child1.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
-            testSubject.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            testSubject.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
-            testSubject.ParsedStyle.PositionX = new StyleValue(posX, posXUnit);
-            testSubject.ParsedStyle.PositionY = new StyleValue(posY, posYUnit);
-            testSubject.ParsedStyle.PositioningType = PositionType.Absolute;
+            child1.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child1.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            testSubject.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            testSubject.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            testSubject.NormalStyle.PositionX = new StyleValue(posX, posXUnit);
+            testSubject.NormalStyle.PositionY = new StyleValue(posY, posYUnit);
+            testSubject.NormalStyle.PositioningType = PositionType.Absolute;
 
             Vector2 expected = new(
                 testSubject.ComputedStyle.PositionX,

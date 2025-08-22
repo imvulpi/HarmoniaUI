@@ -56,8 +56,8 @@ namespace HarmoniaUI.Tests
         {
             UINode root = new();
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
 
             Vector2 expected = new Vector2(MathF.Max(0, width), MathF.Max(0, height));
             Assertions.AssertVector(root.Size).IsEqual(expected);
@@ -96,10 +96,10 @@ namespace HarmoniaUI.Tests
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
             root.GetWindow().Size = new Vector2I(parentWidth, parentHeight);
-            root.ParsedStyle.Width = new StyleValue(parentWidth, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(parentHeight, Unit.Pixel);
-            child.ParsedStyle.Width = new StyleValue(childWidthPercent, Unit.Percent);
-            child.ParsedStyle.Height = new StyleValue(childHeightPercent, Unit.Percent);
+            root.NormalStyle.Width = new StyleValue(parentWidth, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(parentHeight, Unit.Pixel);
+            child.NormalStyle.Width = new StyleValue(childWidthPercent, Unit.Percent);
+            child.NormalStyle.Height = new StyleValue(childHeightPercent, Unit.Percent);
 
             Vector2 expected = new(
                 parentWidth * childWidthPercent,
@@ -141,10 +141,10 @@ namespace HarmoniaUI.Tests
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
             root.GetWindow().Size = new Vector2I(parentWidth, parentHeight);
-            root.ParsedStyle.Width = new StyleValue(parentWidth, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(parentHeight, Unit.Pixel);
-            child.ParsedStyle.Width = new StyleValue(childWidthPercent, Unit.WidthPercent);
-            child.ParsedStyle.Height = new StyleValue(childWidthPercent, Unit.WidthPercent);
+            root.NormalStyle.Width = new StyleValue(parentWidth, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(parentHeight, Unit.Pixel);
+            child.NormalStyle.Width = new StyleValue(childWidthPercent, Unit.WidthPercent);
+            child.NormalStyle.Height = new StyleValue(childWidthPercent, Unit.WidthPercent);
 
             Vector2 expected = new(
                 parentWidth * childWidthPercent,
@@ -186,10 +186,10 @@ namespace HarmoniaUI.Tests
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
             root.GetWindow().Size = new Vector2I(parentWidth, parentHeight);
-            root.ParsedStyle.Width = new StyleValue(parentWidth, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(parentHeight, Unit.Pixel);
-            child.ParsedStyle.Width = new StyleValue(childHeightPercent, Unit.HeightPercent);
-            child.ParsedStyle.Height = new StyleValue(childHeightPercent, Unit.HeightPercent);
+            root.NormalStyle.Width = new StyleValue(parentWidth, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(parentHeight, Unit.Pixel);
+            child.NormalStyle.Width = new StyleValue(childHeightPercent, Unit.HeightPercent);
+            child.NormalStyle.Height = new StyleValue(childHeightPercent, Unit.HeightPercent);
 
             Vector2 expected = new(
                 parentHeight * childHeightPercent,
@@ -226,8 +226,8 @@ namespace HarmoniaUI.Tests
         {
             UINode root = new();
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(0.5f, Unit.ViewportHeight);
-            root.ParsedStyle.Height = new StyleValue(0.5f, Unit.ViewportHeight);
+            root.NormalStyle.Width = new StyleValue(0.5f, Unit.ViewportHeight);
+            root.NormalStyle.Height = new StyleValue(0.5f, Unit.ViewportHeight);
 
             var windowSize = root.GetWindow().Size;
             root.GetWindow().Size = new Vector2I(windowSize.X, viewportHeight);
@@ -259,8 +259,8 @@ namespace HarmoniaUI.Tests
         {
             UINode root = new();
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(0.5f, Unit.ViewportWidth);
-            root.ParsedStyle.Height = new StyleValue(0.5f, Unit.ViewportWidth);
+            root.NormalStyle.Width = new StyleValue(0.5f, Unit.ViewportWidth);
+            root.NormalStyle.Height = new StyleValue(0.5f, Unit.ViewportWidth);
 
             var windowSize = root.GetWindow().Size;
             root.GetWindow().Size = new Vector2I(viewportWidth, windowSize.Y);
@@ -300,8 +300,8 @@ namespace HarmoniaUI.Tests
         {
             UINode root = new();
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(0.5f, Unit.ViewportWidth);
-            root.ParsedStyle.Height = new StyleValue(0.5f, Unit.ViewportHeight);
+            root.NormalStyle.Width = new StyleValue(0.5f, Unit.ViewportWidth);
+            root.NormalStyle.Height = new StyleValue(0.5f, Unit.ViewportHeight);
 
             root.GetWindow().Size = new Vector2I(viewportWidth, viewportHeight);
 
@@ -336,10 +336,10 @@ namespace HarmoniaUI.Tests
         {
             UINode root = new();
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(widthPx/2, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(heightPx/2, Unit.Pixel);
-            root.ParsedStyle.MinWidth = new StyleValue(widthPx, Unit.Pixel);
-            root.ParsedStyle.MinHeight = new StyleValue(heightPx, Unit.Pixel);
+            root.NormalStyle.Width = new StyleValue(widthPx/2, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(heightPx/2, Unit.Pixel);
+            root.NormalStyle.MinWidth = new StyleValue(widthPx, Unit.Pixel);
+            root.NormalStyle.MinHeight = new StyleValue(heightPx, Unit.Pixel);
 
             Assertions.AssertVector(root.Size).IsEqual(new Vector2(widthPx, heightPx));
         }
@@ -371,10 +371,10 @@ namespace HarmoniaUI.Tests
         {
             UINode root = new();
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(widthPx, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(heightPx, Unit.Pixel);
-            root.ParsedStyle.MaxWidth = new StyleValue(widthPx / 2, Unit.Pixel);
-            root.ParsedStyle.MaxHeight = new StyleValue(heightPx / 2, Unit.Pixel);
+            root.NormalStyle.Width = new StyleValue(widthPx, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(heightPx, Unit.Pixel);
+            root.NormalStyle.MaxWidth = new StyleValue(widthPx / 2, Unit.Pixel);
+            root.NormalStyle.MaxHeight = new StyleValue(heightPx / 2, Unit.Pixel);
 
             Assertions.AssertVector(root.Size).IsEqual(new Vector2(widthPx/2, heightPx/2));
         }

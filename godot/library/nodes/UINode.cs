@@ -1,11 +1,12 @@
 using Godot;
 using HarmoniaUI.Commons;
 using HarmoniaUI.Core.Engines.Layout;
-using HarmoniaUI.Core.Engines.Visual;
 using HarmoniaUI.Core.Engines.Registry;
+using HarmoniaUI.Core.Engines.Visual;
 using HarmoniaUI.Core.Style.Computed;
 using HarmoniaUI.Core.Style.Parsed;
 using HarmoniaUI.Core.Style.Raw;
+using HarmoniaUI.Core.Style.Merger;
 
 namespace HarmoniaUI.Nodes
 {
@@ -30,7 +31,7 @@ namespace HarmoniaUI.Nodes
     /// <para>
     /// Key features:
     /// <list type="bullet">
-    /// <item><description>CSS styling system with <see cref="StyleResource"/>. (But with Types)</description></item>
+    /// <item><description>CSS styling system with <see cref="Core.Style.Raw.StyleResource"/>. (But with Types)</description></item>
     /// <item><description>Parsed and computed styles.</description></item>
     /// <item><description>Separate content size (<see cref="ContentWidth"/>, <see cref="ContentHeight"/>) from actual node size.</description></item>
     /// <item><description>Customizable layout via <see cref="ILayoutEngine"/>.</description></item>
@@ -44,7 +45,7 @@ namespace HarmoniaUI.Nodes
     /// </para>
     /// <para>
     /// <see cref="UINode"/> supports an almost instant live preview in the editor,
-    /// updating at 50 ms intervals by default (<c><see cref="intervalMs"/> = 50</c>).  
+    /// updating at 50 ms intervals by default (<c><see cref="preview_intervalMs"/> = 50</c>).  
     /// This preview is only active in Debug mode and inside the editor, and is disabled in
     /// Release builds for performance and reduced overhead.
     /// </para>
@@ -59,17 +60,20 @@ namespace HarmoniaUI.Nodes
     /// The following members can be overridden:
     /// <list type="bullet">
     /// <item><description><c><see cref="UpdateLayout"/></c></description></item>
+    /// <item><description><c><see cref="ApplyStyle"/></c></description></item>
     /// <item><description><c><see cref="_Draw"/></c></description></item>
     /// <item><description><c><see cref="_Ready"/></c></description></item>
     /// <item><description><c><see cref="_EnterTree"/></c></description></item>
     /// <item><description><c><see cref="_ExitTree"/></c></description></item>
     /// <item><description><see cref="ContentWidth"/></description></item>
     /// <item><description><see cref="ContentHeight"/></description></item>
+    /// <item><description>And more...</description></item>
     /// </list>
     /// </para>
     /// <para>
     /// Remember: <see cref="ContentWidth"/> and <see cref="ContentHeight"/> are <c>virtual</c>, 
-    /// They're used to set Size for children nodes, <c>100%</c> in children style is 100% of <see cref="ContentWidth"/> or <see cref="ContentHeight"/>
+    /// They're used to set Size for children nodes, <c>100%</c> in children style is 100% of 
+    /// <see cref="ContentWidth"/> or <see cref="ContentHeight"/>
     /// </para>
     /// <para>
     /// To extend the behavior of <see cref="UINode"/>, you can create custom <see cref="LayoutResource"/>
@@ -109,13 +113,51 @@ namespace HarmoniaUI.Nodes
         /// The style resource applied to a <see cref="UINode"/>, contains layout and visual style properties.
         /// Exported to the Godot editor for easy editing and preview.
         /// </summary>
-        [Export] private StyleResource StyleResource { get; set; } = new();
+        [Export] private StyleResource RawNormalStyle { get; set; } = new();
+        
+        /// <summary>
+        /// The style resource applied to a <see cref="UINode"/> <b>during mouse hovering</b>, contains layout and visual style properties.
+        /// Exported to the Godot editor for easy editing and preview.
+        /// </summary>
+        [Export] private StyleResource RawHoveredStyle { get; set; } = null;
 
         /// <summary>
-        /// The parsed representation of <see cref="StyleResource"/>, used to set styles programically,
-        /// because it allows setting different <see cref="Core.Style.Types.Unit"/> that later get computed into pixel values.
+        /// The style resource applied to a <see cref="UINode"/> <b>during node focus</b>, contains layout and visual style properties.
+        /// Exported to the Godot editor for easy editing and preview.
         /// </summary>
-        public ParsedStyle ParsedStyle { get; set; }
+        [Export] private StyleResource RawFocusedStyle { get; set; } = null;
+
+
+        /// <summary>
+        /// The parsed representation of <see cref="RawNormalStyle"/>, <b>used for setting styles in code</b>b>.
+        /// </summary>
+        public ParsedStyle NormalStyle { get; set; }
+
+        /// <summary>
+        /// The parsed representation of <see cref="RawHoveredStyle"/>, <b>used for setting styles in code</b> when node is hovered on.
+        /// </summary>
+        public ParsedStyle HoveredStyle { get; set; }
+
+        /// <summary>
+        /// The parsed representation of <see cref="RawFocusedStyle"/>, <b>used for setting styles in code</b> when node is focused on.
+        /// </summary>
+        public ParsedStyle FocusedStyle { get; set; }
+
+        /// <summary>
+        /// The current parsed style, can be multiple parsed styles merged. Mostly for reading, but can be changed. 
+        /// </summary>
+        /// <remarks>
+        /// <b>Changing this won't apply styles long term</b>, change other style properties for applying new styles.
+        /// </remarks>
+        public ParsedStyle CurrentStyle { get; set; }
+        
+        /// <summary>
+        /// The current Raw style (with strings), mostly for preview and accesing custom Resources.
+        /// </summary>
+        /// <remarks>
+        /// <b>DON'T</b> use to set values.
+        /// </remarks>
+        public StyleResource RawCurrentStyle { get; set; }
 
         /// <summary>
         /// The fully computed style after resolving sizing from parent nodes. Values are in pixels
@@ -151,26 +193,76 @@ namespace HarmoniaUI.Nodes
         public ILayoutEngine LayoutEngine { get; set; }
 
         /// <summary>
+        /// Whether the node is focused currently.
+        /// </summary>
+        public bool IsFocused { get; private set; } = false;
+
+        /// <summary>
+        /// Whether the node is hovered on currently.
+        /// </summary>
+        public bool IsHovered { get; private set; } = false;
+
+        private ParsedStyle _mergingCache = new();
+
+        /// <summary>
         /// In the <see cref="UINode"/> it sets defaults, creates, parses and computes styles, gets engines and computes sizes.
         /// </summary>
         public override void _EnterTree()
         {
+#if DEBUG
+            if (Engine.IsEditorHint())
+            {
+                Preview_EnterTree();
+                return;
+            }
+#endif
             SetLayoutToPosition();
             Parent = FindParent();
-            ParsedStyle = new();
+            RawNormalStyle ??= new();
+            NormalStyle = new();
             ComputedStyle = new();
-            ParsedStyle = StyleParser.Parse(ParsedStyle, StyleResource);
+            
+            NormalStyle = StyleParser.Parse(NormalStyle, RawNormalStyle);
+            HoveredStyle = StyleParser.Parse(HoveredStyle, RawHoveredStyle);
+            FocusedStyle = StyleParser.Parse(FocusedStyle, RawFocusedStyle);
+
             Vector2 viewportSize = ViewportHelper.GetViewportSize(this);
             Vector2 parentSize = Parent == null ? viewportSize : new Vector2(Parent.ContentWidth, Parent.ContentHeight);
 
-            StyleComputer.Compute(ComputedStyle, ParsedStyle, viewportSize, parentSize);
-            VisualEngine = UIEngines.Visual.GetEngine(StyleResource.VisualResource);
-            LayoutEngine = UIEngines.Layout.GetEngine(StyleResource.LayoutResource);
-            LayoutEngine.ComputeSize(this, ComputedStyle, StyleResource.LayoutResource);
+            CurrentStyle = NormalStyle;
+            RawCurrentStyle = RawNormalStyle;
 
-            ParsedStyle.Changed += StyleChanged;
-            if (IsRoot())
-                GetViewport().SizeChanged += ViewportSizeChange;
+            StyleComputer.Compute(ComputedStyle, NormalStyle, viewportSize, parentSize);
+            VisualEngine = UIEngines.Visual.GetEngine(RawCurrentStyle.VisualResource);
+            LayoutEngine = UIEngines.Layout.GetEngine(RawCurrentStyle.LayoutResource);
+            LayoutEngine.ComputeSize(this, ComputedStyle, RawNormalStyle.LayoutResource);
+
+            NormalStyle.Changed += StyleChanged;
+            if(HoveredStyle != null) HoveredStyle.Changed += StyleChanged;
+            if(FocusedStyle != null) FocusedStyle.Changed += StyleChanged;
+
+            if (IsRoot()) GetViewport().SizeChanged += ViewportSizeChange;
+
+            MouseEntered += HandleMouseEntered;
+            MouseExited += HandleMouseExited;
+            FocusEntered += HandleFocusEntered;
+            FocusExited += HandleFocusExited;
+        }
+
+        /// <summary>
+        /// Handles the hover and focus interactions, merges the styles when hovered or focused.
+        /// </summary>
+        private void HandleInteractions()
+        {
+            CurrentStyle = NormalStyle;
+
+            if (IsHovered) {
+                CurrentStyle = StyleMerger.Merge(NormalStyle, HoveredStyle, ref _mergingCache);
+            }
+
+            if (IsFocused){
+                CurrentStyle = StyleMerger.Merge(CurrentStyle, FocusedStyle, ref _mergingCache);
+            }
         }
 
         /// <summary>
@@ -186,15 +278,25 @@ namespace HarmoniaUI.Nodes
         /// uses the regular and visual styles defined in the <see cref="VisualResource"/>.
         /// This ensures that the node's appearance reflects its current computed styles.
         /// </remarks>
-        public override void _Draw() => VisualEngine.Draw(this, ComputedStyle, StyleResource.VisualResource);
+        public override void _Draw()
+        {
+            VisualEngine.Draw(this, ComputedStyle, RawCurrentStyle.VisualResource);
+        }
 
         /// <summary>
         /// Unlinks from events and prepares the node for hierachy exit.
         /// </summary>
         public override void _ExitTree()
         {
+#if DEBUG
+            if (Engine.IsEditorHint()) return;
+#endif
             if (IsRoot())
                 GetViewport().SizeChanged -= ViewportSizeChange;
+            MouseEntered -= HandleMouseEntered;
+            MouseExited -= HandleMouseExited;
+            FocusEntered -= HandleFocusEntered;
+            FocusExited -= HandleFocusExited;
         }
 
         /// <summary>
@@ -202,7 +304,7 @@ namespace HarmoniaUI.Nodes
         /// and triggers a redraw of the node and its children.
         /// </summary>
         /// <remarks>
-        /// This method computes the current <see cref="ParsedStyle"/>, invokes the
+        /// This method computes the current <see cref="CurrentStyle"/>, invokes the
         /// configured <see cref="ILayoutEngine"/> to compute sizes and arrange the node
         /// and its children, to finally call for a redraw
         /// 
@@ -234,7 +336,7 @@ namespace HarmoniaUI.Nodes
                 }
             }
 
-            LayoutEngine.ApplyLayout(this, ComputedStyle, StyleResource.LayoutResource);
+            LayoutEngine.ApplyLayout(this, ComputedStyle, RawCurrentStyle.LayoutResource);
             QueueRedraw();
         }
 
@@ -242,15 +344,16 @@ namespace HarmoniaUI.Nodes
         /// Recomputes the style and size
         /// </summary>
         /// <remarks>
-        /// Computes the <see cref="ParsedStyle"/> into <see cref="ComputedStyle"/> and recomputes the size
+        /// Computes the <see cref="CurrentStyle"/> into <see cref="ComputedStyle"/> and recomputes the size
         /// using the <see cref="LayoutEngine"/> and styles.
         /// </remarks>
-        public void ApplyStyle()
+        public virtual void ApplyStyle()
         {
             Vector2 viewportSize = ViewportHelper.GetViewportSize(this);
             Vector2 parentSize = Parent == null ? viewportSize : new Vector2(Parent.ContentWidth, Parent.ContentHeight);
-            StyleComputer.Compute(ComputedStyle, ParsedStyle, viewportSize, parentSize);
-            LayoutEngine.ComputeSize(this, ComputedStyle, StyleResource.LayoutResource);
+
+            StyleComputer.Compute(ComputedStyle, CurrentStyle, viewportSize, parentSize);
+            LayoutEngine.ComputeSize(this, ComputedStyle, RawCurrentStyle.LayoutResource);
         }
 
         /// <summary>
@@ -329,6 +432,47 @@ namespace HarmoniaUI.Nodes
 
             return lastUINode;
         }
+
+        /// <summary>
+        /// Handles the focus exiting
+        /// </summary>
+        protected virtual void HandleFocusExited()
+        {
+            IsFocused = false;
+            HandleInteractions();
+            UpdateLayout();
+        }
+
+        /// <summary>
+        /// Handles the focus entering
+        /// </summary>
+        protected virtual void HandleFocusEntered()
+        {
+            IsFocused = true;
+            HandleInteractions();
+            UpdateLayout();
+        }
+
+        /// <summary>
+        /// Handles the mouse hovering exiting
+        /// </summary>
+        protected virtual void HandleMouseExited()
+        {
+            IsHovered = false;
+            HandleInteractions();
+            UpdateLayout();
+        }
+
+        /// <summary>
+        /// Handles the mouse hovering entering
+        /// </summary>
+        protected virtual void HandleMouseEntered()
+        {
+            IsHovered = true;
+            HandleInteractions();
+            UpdateLayout();
+        }
+
 
         /// <summary>
         /// Updates the layout whenether a viewport size changes

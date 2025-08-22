@@ -54,11 +54,11 @@ namespace HarmoniaUI.Tests
             UINode child = new();
             root.AddChild(child);
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Padding = StyleParser.ParseSides(padding);
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
-            child.ParsedStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
-            child.ParsedStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
+            root.NormalStyle.Padding = StyleParser.ParseSides(padding);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
+            child.NormalStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
+            child.NormalStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
             child.ApplyStyle();
 
             Assertions.AssertVector(child.Position)
@@ -110,11 +110,11 @@ namespace HarmoniaUI.Tests
             UINode child = new();
             root.AddChild(child);
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.BorderWidth = StyleParser.ParseSides(border);
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
-            child.ParsedStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
-            child.ParsedStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
+            root.NormalStyle.BorderWidth = StyleParser.ParseSides(border);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
+            child.NormalStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
+            child.NormalStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
             child.ApplyStyle();
 
             Assertions.AssertVector(child.Position)
@@ -167,11 +167,11 @@ namespace HarmoniaUI.Tests
             root.AddChild(child);
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
 
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
-            child.ParsedStyle.Margin = StyleParser.ParseSides(margin);
-            child.ParsedStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
-            child.ParsedStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
+            child.NormalStyle.Margin = StyleParser.ParseSides(margin);
+            child.NormalStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
+            child.NormalStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
 
             Assertions.AssertVector(child.Position)
                 .IsEqualApprox(new Vector2(child.ComputedStyle.Margin.Left, child.ComputedStyle.Margin.Top), Tolerance);
@@ -215,12 +215,12 @@ namespace HarmoniaUI.Tests
             UINode child = new();
             root.AddChild(child);
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.BorderWidth = StyleParser.ParseSides(border);
-            root.ParsedStyle.Padding = StyleParser.ParseSides(padding);
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
-            child.ParsedStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
-            child.ParsedStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
+            root.NormalStyle.BorderWidth = StyleParser.ParseSides(border);
+            root.NormalStyle.Padding = StyleParser.ParseSides(padding);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
+            child.NormalStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
+            child.NormalStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
             child.ApplyStyle();
 
             Assertions.AssertVector(child.Position)
@@ -270,12 +270,12 @@ namespace HarmoniaUI.Tests
             root.AddChild(child);
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
 
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
-            root.ParsedStyle.Padding = StyleParser.ParseSides(padding);
-            child.ParsedStyle.Margin = StyleParser.ParseSides(margin);
-            child.ParsedStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
-            child.ParsedStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
+            root.NormalStyle.Padding = StyleParser.ParseSides(padding);
+            child.NormalStyle.Margin = StyleParser.ParseSides(margin);
+            child.NormalStyle.Width = new StyleValue(childWidthPct, Unit.Percent);
+            child.NormalStyle.Height = new StyleValue(childHeightPct, Unit.Percent);
 
             Assertions.AssertVector(child.Position)
                 .IsEqualApprox(new Vector2(child.ComputedStyle.Margin.Left + root.ComputedStyle.Padding.Left, 
@@ -320,13 +320,13 @@ namespace HarmoniaUI.Tests
             root.AddChild(child2);
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            child1.ParsedStyle.Margin = StyleParser.ParseSides(margin1);
-            child1.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child1.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            child1.NormalStyle.Margin = StyleParser.ParseSides(margin1);
+            child1.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child1.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
 
-            child2.ParsedStyle.Margin = StyleParser.ParseSides(margin2);
-            child2.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child2.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            child2.NormalStyle.Margin = StyleParser.ParseSides(margin2);
+            child2.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child2.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
 
             Assertions.AssertVector(child1.Position)
                 .IsEqualApprox(new Vector2(child1.ComputedStyle.Margin.Left, child1.ComputedStyle.Margin.Top), Tolerance);
@@ -373,14 +373,14 @@ namespace HarmoniaUI.Tests
             child1.AddChild(child2);
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.Padding = StyleParser.ParseSides(padding1);
+            root.NormalStyle.Padding = StyleParser.ParseSides(padding1);
 
-            child1.ParsedStyle.Padding = StyleParser.ParseSides(padding2);
-            child1.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child1.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            child1.NormalStyle.Padding = StyleParser.ParseSides(padding2);
+            child1.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child1.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
 
-            child2.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child2.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            child2.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child2.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
 
             Assertions.AssertVector(child2.GlobalPosition)
                 .IsEqualApprox(new Vector2(
@@ -425,14 +425,14 @@ namespace HarmoniaUI.Tests
             child1.AddChild(child2);
 
             ISceneRunner sceneRunner = ISceneRunner.Load(root);
-            root.ParsedStyle.BorderWidth = StyleParser.ParseSides(border1);
+            root.NormalStyle.BorderWidth = StyleParser.ParseSides(border1);
 
-            child1.ParsedStyle.BorderWidth = StyleParser.ParseSides(border2);
-            child1.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child1.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            child1.NormalStyle.BorderWidth = StyleParser.ParseSides(border2);
+            child1.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child1.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
 
-            child2.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child2.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            child2.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child2.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
 
             Assertions.AssertVector(child2.GlobalPosition)
                 .IsEqualApprox(new Vector2(
