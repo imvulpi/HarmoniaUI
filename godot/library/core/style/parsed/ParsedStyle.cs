@@ -34,7 +34,7 @@ namespace HarmoniaUI.Core.Style.Parsed
         #region Behaviour
 
         /// <inheritdoc cref="Visibility"/>
-        private VisibilityType _visibility;
+        private VisibilityType _visibility = VisibilityType.Unset;
 
         public VisibilityType Visibility { get => _visibility; set => Set(ref _visibility, value, UINodeAction.Redraw | UINodeAction.Relayout); }
 
@@ -43,7 +43,7 @@ namespace HarmoniaUI.Core.Style.Parsed
         #region Size
 
         /// <inheritdoc cref="SizingType"/>
-        private SizingType _sizingType;
+        private SizingType _sizingType = SizingType.Unset;
 
         /// <inheritdoc cref="Width"/>
         private StyleValue _width;
@@ -89,7 +89,7 @@ namespace HarmoniaUI.Core.Style.Parsed
         #region Background
 
         /// <inheritdoc cref="BackgroundColor" />
-        private Color _backgroundColor;
+        private Color _backgroundColor = StyleDefaults.UnsetColor;
 
         public Color BackgroundColor { get => _backgroundColor; set => Set(ref _backgroundColor, value, UINodeAction.Redraw); }
 
@@ -102,7 +102,7 @@ namespace HarmoniaUI.Core.Style.Parsed
         /// <inheritdoc cref="BorderWidth"/>
         private StyleSides<StyleValue> _borderWidth;
         /// <inheritdoc cref="BorderColor"/>
-        private Color _borderColor;
+        private Color _borderColor = StyleDefaults.UnsetColor;
 
         public StyleSides<StyleValue> BorderRadius { get => _borderRadius; set => Set(ref _borderRadius, value, UINodeAction.Redraw | UINodeAction.Relayout); }
 
@@ -115,7 +115,7 @@ namespace HarmoniaUI.Core.Style.Parsed
         #region Shadow
 
         /// <inheritdoc cref="ShadowColor"/>
-        private Color _shadowColor;
+        private Color _shadowColor = StyleDefaults.UnsetColor;
         /// <inheritdoc cref="ShadowOffsetX"/>
         private StyleValue _shadowOffsetX;
         /// <inheritdoc cref="ShadowOffsetY"/>
@@ -130,7 +130,7 @@ namespace HarmoniaUI.Core.Style.Parsed
         #region Position
 
         /// <inheritdoc cref="PositioningType" />
-        private PositionType _positioningType;
+        private PositionType _positioningType = PositionType.Unset;
 
         /// <inheritdoc cref="PositionX" />
         private StyleValue _positionX;

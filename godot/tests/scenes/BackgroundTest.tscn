@@ -1,9 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxkxjvo74t0yo"]
+[gd_scene load_steps=7 format=3 uid="uid://cxkxjvo74t0yo"]
 
 [ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="1_a2xlk"]
 [ext_resource type="Script" uid="uid://clsl6vx4qpjvj" path="res://tests/utils/TestsRepo.cs" id="1_yycr8"]
 [ext_resource type="Script" uid="uid://bchvhrkl3by33" path="res://tests/utils/ColorTest.cs" id="3_77jam"]
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="3_n463n"]
 [ext_resource type="Resource" uid="uid://c5v00oaw7ym7t" path="res://tests/scenes/BackgroundTest_Box.tres" id="3_yycr8"]
+
+[sub_resource type="Resource" id="Resource_bmyqx"]
+script = ExtResource("3_n463n")
+Visibility = 0
+SizingType = 0
+Width = ""
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 1, 1, 0)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
 
 [node name="BackgroundTest" type="Control" node_paths=PackedStringArray("TestNodes")]
 layout_mode = 3
@@ -21,6 +45,7 @@ offset_top = 1.0
 offset_right = 1152.0
 offset_bottom = 649.0
 script = ExtResource("1_a2xlk")
+RawNormalStyle = SubResource("Resource_bmyqx")
 metadata/_custom_type_script = "uid://24cno45fapa6"
 
 [node name="Subject" type="Control" parent="SubParent"]
@@ -30,7 +55,7 @@ offset_top = 194.4
 offset_right = 691.2
 offset_bottom = 424.8
 script = ExtResource("1_a2xlk")
-NormalStyle = ExtResource("3_yycr8")
+RawNormalStyle = ExtResource("3_yycr8")
 metadata/_custom_type_script = "uid://24cno45fapa6"
 
 [node name="Background test" type="Control" parent="."]

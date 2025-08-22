@@ -60,7 +60,7 @@ namespace HarmoniaUI.Tests.Utils
         /// When using <see cref="TolerancePx"/> - inside the green rectangle visible in the editor.
         /// </remarks>
         [ExportSubgroup("Testing")]
-        [Export] Color ExpectedColor { get; set; }
+        [Export] public Color ExpectedColor { get; set; }
 
         /// <summary>
         /// Pixel amount the rectangle should be shrinked by.

@@ -1,6 +1,5 @@
 using Godot;
 using HarmoniaUI.Core.Style.Parsed;
-using HarmoniaUI.Core.Style.Raw;
 using HarmoniaUI.Core.Style.Types;
 
 namespace HarmoniaUI.Core.Style.Merger
@@ -31,14 +30,9 @@ namespace HarmoniaUI.Core.Style.Merger
             if (primary == null) return secondary;
             if (secondary == null) return primary;
 
-            // TODO: Extend merging
-            // SizingType not implemented yet
-            // Visibility not implemented yet
-            // PositioningType not implemented yet
-            result.PositioningType = secondary.PositioningType;
-            result.Visibility = secondary.Visibility;
-            result.SizingType = secondary.SizingType;
-
+            result.Visibility = (VisibilityType)MergeEnum((int)primary.Visibility, (int)secondary.Visibility);
+            result.PositioningType = (PositionType)MergeEnum((int)primary.PositioningType, (int)secondary.PositioningType);
+            result.SizingType = (SizingType)MergeEnum((int)primary.SizingType, (int)secondary.SizingType);
             result.BackgroundColor = MergeColor(primary.BackgroundColor, secondary.BackgroundColor);
             result.BorderColor = MergeColor(primary.BorderColor, secondary.BorderColor);
             result.ShadowColor = MergeColor(primary.ShadowColor, secondary.ShadowColor);
@@ -59,18 +53,27 @@ namespace HarmoniaUI.Core.Style.Merger
             return result;
         }
 
+        private static int MergeEnum(int primary, int secondary)
+        {
+            if(secondary == StyleDefaults.ENUM_UNSET_VAL)
+            {
+                return primary;
+            }
+            return secondary;
+        }
+
         /// <summary>
-        /// Merges a color, by checking whether the <paramref name="secondary"/> color is equal to <see cref="StyleResource.UnsetColor"/>
+        /// Merges a color, by checking whether the <paramref name="secondary"/> color is equal to <see cref="StyleDefaults.UnsetColor"/>
         /// </summary>
         /// <remarks>
-        /// <see cref="StyleResource.UnsetColor"/> is equal to a value being unset.
+        /// <see cref="StyleDefaults.UnsetColor"/> is equal to a value being unset.
         /// </remarks>
         /// <param name="primary">Primary color, returned when secondary is unset</param>
         /// <param name="secondary">Secondary color</param>
         /// <returns>Merged color</returns>
         private static Color MergeColor(Color primary, Color secondary)
         {
-            if(secondary == StyleResource.UnsetColor)
+            if(secondary == StyleDefaults.UnsetColor)
             {
                 return primary;
             }

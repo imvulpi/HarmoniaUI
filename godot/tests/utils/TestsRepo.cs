@@ -2,6 +2,7 @@ using Godot;
 using HarmoniaUI.Tests.Utils;
 using System;
 
+[GlobalClass]
 /// <summary>
 /// Repository for nodes with <see cref="ITest"/>, store multiple tests in a single scene
 /// </summary>
@@ -37,6 +38,17 @@ public partial class TestsRepo : Control
     public override void _Ready()
     {
         ConvertTests();
+    }
+
+    /// <summary>
+    /// Restarts all tests in <see cref="TestNodes"/>
+    /// </summary>
+    public void RestartAll()
+    {
+        foreach (var node in TestNodes)
+        {
+            node.Restart();
+        }
     }
 
     /// <summary>

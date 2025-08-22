@@ -18,8 +18,14 @@ namespace HarmoniaUI.Tests.Utils
         /// <exception cref="TestFailedException">Fails if no tests, or if any of the tests fail</exception>
         public static async Task ProcessTestRepo(TestsRepo tests)
         {
-            await tests.AwaitSignal("draw");
+            if (tests == null)
+            {
+                throw new TestFailedException("Root node is not a tests repo");
+            }
+
+            tests.RestartAll();
             tests.QueueRedraw();
+            await tests.AwaitSignal("draw");
 
             if (tests.TestNodes == null) throw new TestFailedException("No test nodes found, add it or remove the test entirely.");
             while (true)

@@ -1,2 +1,5 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+
+# Ignores addon files from being detected as repo languages.
+godot/addons/* linguist-vendored

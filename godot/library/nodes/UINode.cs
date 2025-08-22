@@ -31,7 +31,7 @@ namespace HarmoniaUI.Nodes
     /// <para>
     /// Key features:
     /// <list type="bullet">
-    /// <item><description>CSS styling system with <see cref="Core.Style.Raw.StyleResource"/>. (But with Types)</description></item>
+    /// <item><description>CSS styling system with <see cref="StyleResource"/>. (But with Types)</description></item>
     /// <item><description>Parsed and computed styles.</description></item>
     /// <item><description>Separate content size (<see cref="ContentWidth"/>, <see cref="ContentHeight"/>) from actual node size.</description></item>
     /// <item><description>Customizable layout via <see cref="ILayoutEngine"/>.</description></item>
@@ -113,7 +113,7 @@ namespace HarmoniaUI.Nodes
         /// The style resource applied to a <see cref="UINode"/>, contains layout and visual style properties.
         /// Exported to the Godot editor for easy editing and preview.
         /// </summary>
-        [Export] private StyleResource RawNormalStyle { get; set; } = new();
+        [Export] private StyleResource RawNormalStyle { get; set; } = StyleResource.GetDefault();
         
         /// <summary>
         /// The style resource applied to a <see cref="UINode"/> <b>during mouse hovering</b>, contains layout and visual style properties.
@@ -202,6 +202,9 @@ namespace HarmoniaUI.Nodes
         /// </summary>
         public bool IsHovered { get; private set; } = false;
 
+        /// <summary>
+        /// Cached style for merging, used to limit allocations.
+        /// </summary>
         private ParsedStyle _mergingCache = new();
 
         /// <summary>
@@ -440,7 +443,7 @@ namespace HarmoniaUI.Nodes
         {
             IsFocused = false;
             HandleInteractions();
-            UpdateLayout();
+            UpdateParentOrSelf();
         }
 
         /// <summary>
@@ -450,7 +453,7 @@ namespace HarmoniaUI.Nodes
         {
             IsFocused = true;
             HandleInteractions();
-            UpdateLayout();
+            UpdateParentOrSelf();
         }
 
         /// <summary>
@@ -460,7 +463,8 @@ namespace HarmoniaUI.Nodes
         {
             IsHovered = false;
             HandleInteractions();
-            UpdateLayout();
+            UpdateParentOrSelf();
+
         }
 
         /// <summary>
@@ -470,18 +474,28 @@ namespace HarmoniaUI.Nodes
         {
             IsHovered = true;
             HandleInteractions();
-            UpdateLayout();
+            UpdateParentOrSelf();
         }
 
+        /// <summary>
+        /// Updates itself if it's the root otherwise it updates Parent, which in turn will update this node.
+        /// </summary>
+        /// <remarks>
+        /// Updating parent first is useful, so the relative units also update.
+        /// </remarks>
+        private void UpdateParentOrSelf()
+        {
+            if (IsRoot())
+                UpdateLayout();
+            else Parent?.UpdateLayout();
+        }
 
         /// <summary>
         /// Updates the layout whenether a viewport size changes
         /// </summary>
         private void ViewportSizeChange()
         {
-            if (IsRoot())
-                UpdateLayout();
-            else Parent?.UpdateLayout();
+            UpdateParentOrSelf();
         }
 
         /// <summary>
@@ -492,9 +506,7 @@ namespace HarmoniaUI.Nodes
         {
             if (obj.HasFlag(UINodeAction.Relayout))
             {
-                if(Parent == null)
-                    UpdateLayout();
-                else Parent?.UpdateLayout();
+                UpdateParentOrSelf();
                 return; // Layout queues redraw that's why we ignore Redraw
             }
             if (obj.HasFlag(UINodeAction.Redraw)) QueueRedraw();

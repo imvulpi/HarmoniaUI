@@ -10,6 +10,11 @@ namespace HarmoniaUI.Core.Style.Types
     public enum VisibilityType
     {
         /// <summary>
+        /// Unset visibility, meaning the visibility will get inherited or defaulted.
+        /// </summary>
+        Unset = StyleDefaults.ENUM_UNSET_VAL,
+        
+        /// <summary>
         /// Element is visible.
         /// </summary>
         Visible,

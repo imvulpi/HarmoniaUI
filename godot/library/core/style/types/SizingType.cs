@@ -6,6 +6,11 @@ namespace HarmoniaUI.Core.Style.Types
     public enum SizingType
     {
         /// <summary>
+        /// Unset sizing type, meaning that sizing type will get inherited or defaulted.
+        /// </summary>
+        Unset = StyleDefaults.ENUM_UNSET_VAL,
+
+        /// <summary>
         /// Set size will include the content, padding and border.
         /// </summary>
         /// <remarks>
