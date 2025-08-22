@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="StyleResource" load_steps=2 format=3 uid="uid://c1e7f3h21x25c"]
+
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="1_mjiyk"]
+
+[resource]
+script = ExtResource("1_mjiyk")
+Visibility = 0
+SizingType = 0
+Width = ""
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0, 0, 0, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""

@@ -1,55 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxkxjvo74t0yo"]
+[gd_scene load_steps=5 format=3 uid="uid://cxkxjvo74t0yo"]
 
 [ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="1_a2xlk"]
 [ext_resource type="Script" uid="uid://clsl6vx4qpjvj" path="res://tests/utils/TestsRepo.cs" id="1_yycr8"]
-[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="2_77jam"]
 [ext_resource type="Script" uid="uid://bchvhrkl3by33" path="res://tests/utils/ColorTest.cs" id="3_77jam"]
-
-[sub_resource type="Resource" id="Resource_yycr8"]
-script = ExtResource("2_77jam")
-Visibility = 0
-SizingType = 0
-Width = "100%"
-Height = "100%"
-MinWidth = ""
-MinHeight = ""
-MaxWidth = ""
-MaxHeight = ""
-Padding = ""
-Margin = ""
-BackgroundColor = Color(0.0542401, 0.292073, 1, 1)
-BorderRadius = ""
-BorderWidth = ""
-BorderColor = Color(0, 0, 0, 0)
-ShadowColor = Color(1, 1, 1, 0)
-ShadowOffsetX = ""
-ShadowOffsetY = ""
-PositioningType = 0
-PositionX = ""
-PositionY = ""
-
-[sub_resource type="Resource" id="Resource_a2xlk"]
-script = ExtResource("2_77jam")
-Visibility = 0
-SizingType = 0
-Width = "20%"
-Height = "20w%"
-MinWidth = ""
-MinHeight = ""
-MaxWidth = ""
-MaxHeight = ""
-Padding = ""
-Margin = ""
-BackgroundColor = Color(0.266667, 0.756863, 1, 1)
-BorderRadius = ""
-BorderWidth = ""
-BorderColor = Color(0, 0, 0, 0)
-ShadowColor = Color(1, 1, 1, 0)
-ShadowOffsetX = ""
-ShadowOffsetY = ""
-PositioningType = 1
-PositionX = "40%"
-PositionY = "30%"
+[ext_resource type="Resource" uid="uid://c5v00oaw7ym7t" path="res://tests/scenes/BackgroundTest_Box.tres" id="3_yycr8"]
 
 [node name="BackgroundTest" type="Control" node_paths=PackedStringArray("TestNodes")]
 layout_mode = 3
@@ -61,23 +15,22 @@ grow_vertical = 2
 script = ExtResource("1_yycr8")
 TestNodes = [NodePath("Background test")]
 
-[node name="Root" type="Control" parent="."]
+[node name="SubParent" type="Control" parent="."]
 anchors_preset = 0
 offset_top = 1.0
 offset_right = 1152.0
 offset_bottom = 649.0
 script = ExtResource("1_a2xlk")
-StyleResource = SubResource("Resource_yycr8")
 metadata/_custom_type_script = "uid://24cno45fapa6"
 
-[node name="Box" type="Control" parent="Root"]
+[node name="Subject" type="Control" parent="SubParent"]
 anchors_preset = 0
 offset_left = 460.8
 offset_top = 194.4
 offset_right = 691.2
 offset_bottom = 424.8
 script = ExtResource("1_a2xlk")
-StyleResource = SubResource("Resource_a2xlk")
+NormalStyle = ExtResource("3_yycr8")
 metadata/_custom_type_script = "uid://24cno45fapa6"
 
 [node name="Background test" type="Control" parent="."]

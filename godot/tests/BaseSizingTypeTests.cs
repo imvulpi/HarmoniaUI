@@ -52,11 +52,11 @@ namespace HarmoniaUI.Tests
             UINode root = new UINode();
             ISceneRunner.Load(root);
 
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
-            root.ParsedStyle.SizingType = SizingType.Border;
-            root.ParsedStyle.BorderWidth = StyleParser.ParseSides(border);
-            root.ParsedStyle.Padding = StyleParser.ParseSides(padding);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
+            root.NormalStyle.SizingType = SizingType.Border;
+            root.NormalStyle.BorderWidth = StyleParser.ParseSides(border);
+            root.NormalStyle.Padding = StyleParser.ParseSides(padding);
         
             Assertions.AssertVector(root.Size).IsEqualApprox(new Godot.Vector2(width, height), Tolerance);
         }
@@ -100,11 +100,11 @@ namespace HarmoniaUI.Tests
             UINode root = new UINode();
             ISceneRunner.Load(root);
 
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
-            root.ParsedStyle.SizingType = SizingType.Padding;
-            root.ParsedStyle.BorderWidth = StyleParser.ParseSides(border);
-            root.ParsedStyle.Padding = StyleParser.ParseSides(padding);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
+            root.NormalStyle.SizingType = SizingType.Padding;
+            root.NormalStyle.BorderWidth = StyleParser.ParseSides(border);
+            root.NormalStyle.Padding = StyleParser.ParseSides(padding);
         
             Assertions.AssertVector(root.Size).IsEqualApprox(new Godot.Vector2(
                 width + root.ComputedStyle.BorderWidth.Left + root.ComputedStyle.BorderWidth.Right, 
@@ -152,11 +152,11 @@ namespace HarmoniaUI.Tests
             UINode root = new UINode();
             ISceneRunner.Load(root);
 
-            root.ParsedStyle.Width = new StyleValue(width, Unit.Pixel);
-            root.ParsedStyle.Height = new StyleValue(height, Unit.Pixel);
-            root.ParsedStyle.SizingType = SizingType.Content;
-            root.ParsedStyle.BorderWidth = StyleParser.ParseSides(border);
-            root.ParsedStyle.Padding = StyleParser.ParseSides(padding);
+            root.NormalStyle.Width = new StyleValue(width, Unit.Pixel);
+            root.NormalStyle.Height = new StyleValue(height, Unit.Pixel);
+            root.NormalStyle.SizingType = SizingType.Content;
+            root.NormalStyle.BorderWidth = StyleParser.ParseSides(border);
+            root.NormalStyle.Padding = StyleParser.ParseSides(padding);
 
             Assertions.AssertVector(root.Size).IsEqualApprox(new Godot.Vector2(
                 width + root.ComputedStyle.BorderWidth.Left + root.ComputedStyle.BorderWidth.Right

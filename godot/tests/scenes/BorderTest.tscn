@@ -1,55 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cv3a3xlugx7lh"]
+[gd_scene load_steps=6 format=3 uid="uid://cv3a3xlugx7lh"]
 
 [ext_resource type="Script" uid="uid://clsl6vx4qpjvj" path="res://tests/utils/TestsRepo.cs" id="1_02at8"]
 [ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="2_a5amm"]
-[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="3_jp3ji"]
+[ext_resource type="Resource" uid="uid://c1e7f3h21x25c" path="res://tests/scenes/BorderTest_SubParent.tres" id="3_rjpgi"]
 [ext_resource type="Script" uid="uid://bchvhrkl3by33" path="res://tests/utils/ColorTest.cs" id="4_jp3ji"]
-
-[sub_resource type="Resource" id="Resource_a5amm"]
-script = ExtResource("3_jp3ji")
-Visibility = 0
-SizingType = 0
-Width = ""
-Height = ""
-MinWidth = ""
-MinHeight = ""
-MaxWidth = ""
-MaxHeight = ""
-Padding = ""
-Margin = ""
-BackgroundColor = Color(0, 0, 0, 1)
-BorderRadius = ""
-BorderWidth = ""
-BorderColor = Color(0, 0, 0, 0)
-ShadowColor = Color(1, 1, 1, 0)
-ShadowOffsetX = ""
-ShadowOffsetY = ""
-PositioningType = 0
-PositionX = ""
-PositionY = ""
-
-[sub_resource type="Resource" id="Resource_jp3ji"]
-script = ExtResource("3_jp3ji")
-Visibility = 0
-SizingType = 0
-Width = "50%"
-Height = "50%"
-MinWidth = ""
-MinHeight = ""
-MaxWidth = ""
-MaxHeight = ""
-Padding = ""
-Margin = ""
-BackgroundColor = Color(0, 0, 0, 0)
-BorderRadius = "150px"
-BorderWidth = "12%"
-BorderColor = Color(1, 1, 1, 1)
-ShadowColor = Color(1, 1, 1, 0)
-ShadowOffsetX = ""
-ShadowOffsetY = ""
-PositioningType = 0
-PositionX = ""
-PositionY = ""
+[ext_resource type="Resource" uid="uid://b4s3dmx4jqcxp" path="res://tests/scenes/BorderTest_Subject.tres" id="4_rjpgi"]
 
 [node name="BorderTest" type="Control" node_paths=PackedStringArray("TestNodes")]
 layout_mode = 3
@@ -61,20 +16,20 @@ grow_vertical = 2
 script = ExtResource("1_02at8")
 TestNodes = [NodePath("ColorTest"), NodePath("ColorTest2"), NodePath("ColorTest3"), NodePath("ColorTest4"), NodePath("ColorTest5"), NodePath("ColorTest6"), NodePath("ColorTest7"), NodePath("ColorTest8")]
 
-[node name="UINode" type="Control" parent="."]
+[node name="SubParent" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 script = ExtResource("2_a5amm")
-StyleResource = SubResource("Resource_a5amm")
+NormalStyle = ExtResource("3_rjpgi")
 metadata/_custom_type_script = "uid://24cno45fapa6"
 
-[node name="UINode" type="Control" parent="UINode"]
+[node name="Subject" type="Control" parent="SubParent"]
 anchors_preset = 0
 offset_right = 576.0
 offset_bottom = 324.0
 script = ExtResource("2_a5amm")
-StyleResource = SubResource("Resource_jp3ji")
+NormalStyle = ExtResource("4_rjpgi")
 metadata/_custom_type_script = "uid://24cno45fapa6"
 
 [node name="ColorTest" type="Control" parent="."]
