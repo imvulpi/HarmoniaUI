@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3 uid="uid://bl15r1it443in"]
+
+[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="1_r1kgy"]
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="2_bpvwe"]
+
+[sub_resource type="Resource" id="Resource_g7eub"]
+script = ExtResource("2_bpvwe")
+Visibility = 0
+SizingType = 0
+Width = ""
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 1, 1, 0)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="Resource" id="Resource_70j0a"]
+script = ExtResource("2_bpvwe")
+Visibility = 0
+SizingType = 0
+Width = "50%"
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 0.411765, 1, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="Resource" id="Resource_r1kgy"]
+script = ExtResource("2_bpvwe")
+Visibility = -1
+SizingType = -1
+Width = ""
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0.0807833, 0.0807833, 0.0807833, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(-1, -1, -1, -1)
+ShadowColor = Color(-1, -1, -1, -1)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = -1
+PositionX = ""
+PositionY = ""
+metadata/_custom_type_script = "uid://b3al2knqpp5q"
+
+[sub_resource type="Resource" id="Resource_1dlsr"]
+script = ExtResource("2_bpvwe")
+Visibility = 0
+SizingType = 0
+Width = "50%"
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0, 0.870522, 0.870521, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 2
+PositionX = "50%"
+PositionY = ""
+
+[node name="UINode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_r1kgy")
+RawNormalStyle = SubResource("Resource_g7eub")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="UINode" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 576.0
+offset_bottom = 648.0
+focus_mode = 2
+script = ExtResource("1_r1kgy")
+RawNormalStyle = SubResource("Resource_70j0a")
+RawPressedStyle = SubResource("Resource_r1kgy")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="UINode2" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+focus_mode = 2
+script = ExtResource("1_r1kgy")
+RawNormalStyle = SubResource("Resource_1dlsr")
+RawPressedStyle = SubResource("Resource_r1kgy")
+metadata/_custom_type_script = "uid://24cno45fapa6"

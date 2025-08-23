@@ -17,7 +17,7 @@ namespace HarmoniaUI.Core.Style.Raw
     /// </remarks>
     [Tool]
     [GlobalClass]
-    public partial class StyleResource : Resource, IStyle<string, string>
+    public partial class StyleResource : Resource, IStyle<string, string>, IStyleCustomResources
     {
         #region Behaviour
 
@@ -25,27 +25,9 @@ namespace HarmoniaUI.Core.Style.Raw
         [Export]
         public VisibilityType Visibility { get; set; } = VisibilityType.Unset;
 
-        /// <summary>
-        /// A custom layout resource that will be used to retrieve a layout engine.
-        /// It's passed 'as is' to the <see cref="Engines.Layout.ILayoutEngine"/> 
-        /// associated with the layout resource type
-        /// </summary>
-        /// <remarks>
-        /// You can create a custom <see cref="LayoutResource"/> and a engine supporting it 
-        /// by registering it in <see cref="Engines.Registry.UIEngines"/>.
-        /// </remarks>
         [Export] public LayoutResource LayoutResource { get; set; } = null;
-
-        /// <summary>
-        /// A custom visual resource that will be used to retrieve a visual engine.
-        /// It's passed 'as is' to the <see cref="Engines.Visual.IVisualEngine"/>
-        /// associated with the visual resource type
-        /// </summary>
-        /// <remarks>
-        /// You can create a custom <see cref="VisualResource"/> and a engine supporting it 
-        /// by registering it in <see cref="Engines.Registry.UIEngines"/>.
-        /// </remarks>
         [Export] public VisualResource VisualResource { get; set; } = null;
+        [Export] public InputResource InputResource { get; set; } = null;
 
         #endregion
 

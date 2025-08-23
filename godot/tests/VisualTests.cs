@@ -15,7 +15,7 @@ namespace HarmoniaUI.Tests
         private const string SHADOW_TEST = "res://tests/scenes/ShadowTest.tscn";
         private const string BACKGROUND_TEST = "res://tests/scenes/BackgroundTest.tscn";
         private const string BORDER_TEST = "res://tests/scenes/BorderTest.tscn";
-        private const string HOVER_FOCUS_TEST = "res://tests/scenes/HoverAndFocusTest.tscn";
+        private const string HOVER_FOCUS_TEST = "res://tests/scenes/InteractionTest.tscn";
 
         /// <summary>
         /// Sets the window mode to <see cref="DisplayServer.WindowMode.Windowed"/> in order for visuals to get drawn.
@@ -141,21 +141,41 @@ namespace HarmoniaUI.Tests
         [TestCase(1280, 720)]
         [TestCase(1920, 1080)]
         [TestCase(3840, 2160)]
-        public async Task HoverAndFocusStyleTest(int viewportWidth, int viewportHeight)
+        public async Task InteractionStyleTest(int viewportWidth, int viewportHeight)
         {
             using ISceneRunner runner = ISceneRunner.Load(HOVER_FOCUS_TEST, true, true);
             runner.SimulateMouseMove(new Vector2(10,10));
             var tests = runner.Scene() as TestsRepo;
             tests.GetWindow().Size = new Vector2I(viewportWidth, viewportHeight);
+            ColorTest colorTest = (ColorTest)tests.TestNodes[0];
 
+            // Regular
             await TestsHelper.ProcessTestRepo(tests);
 
-            runner.SimulateMouseButtonPress(MouseButton.Left);
-            if(tests.TestNodes[0] is ColorTest colorTest)
-            {
-                colorTest.ExpectedColor = new Color(0, 0, 1, 1);
-            }
+            // Mouse Hover
+            runner.SimulateMouseMove(new Vector2(10, 10));
+            colorTest.ExpectedColor = new Color(1, 1, 1, 1);
+            await TestsHelper.ProcessTestRepo(tests);
 
+            // Mouse Pressed
+            runner.SimulateMouseButtonPress(MouseButton.Left);
+            colorTest.ExpectedColor = new Color(0, 1, 0, 1);
+            await TestsHelper.ProcessTestRepo(tests);
+
+            // Mouse Focused
+            runner.SimulateMouseButtonRelease(MouseButton.Left);
+            colorTest.ExpectedColor = new Color(0, 0, 1, 1);
+            await TestsHelper.ProcessTestRepo(tests);
+
+            // Joypad Pressed
+            var subject = (Control)tests.FindChild("Subject");
+            subject.GrabFocus();
+            subject._Input(new InputEventJoypadButton()
+            {
+                ButtonIndex = JoyButton.X,
+                Pressed = true
+            });
+            colorTest.ExpectedColor = new Color(0, 1, 0, 1);
             await TestsHelper.ProcessTestRepo(tests);
         }
     }

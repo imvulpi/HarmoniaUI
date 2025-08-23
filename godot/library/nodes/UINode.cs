@@ -7,6 +7,8 @@ using HarmoniaUI.Core.Style.Computed;
 using HarmoniaUI.Core.Style.Parsed;
 using HarmoniaUI.Core.Style.Raw;
 using HarmoniaUI.Core.Style.Merger;
+using System;
+using HarmoniaUI.Core.Engines.Input;
 
 namespace HarmoniaUI.Nodes
 {
@@ -127,6 +129,12 @@ namespace HarmoniaUI.Nodes
         /// </summary>
         [Export] private StyleResource RawFocusedStyle { get; set; } = null;
 
+        /// <summary>
+        /// The style resource applied to a <see cref="UINode"/> <b>during node press</b>, contains layout and visual style properties.
+        /// Exported to the Godot editor for easy editing and preview.
+        /// </summary>
+        [Export] private StyleResource RawPressedStyle { get; set; } = null;
+
 
         /// <summary>
         /// The parsed representation of <see cref="RawNormalStyle"/>, <b>used for setting styles in code</b>b>.
@@ -142,6 +150,11 @@ namespace HarmoniaUI.Nodes
         /// The parsed representation of <see cref="RawFocusedStyle"/>, <b>used for setting styles in code</b> when node is focused on.
         /// </summary>
         public ParsedStyle FocusedStyle { get; set; }
+
+        /// <summary>
+        /// The parsed representation of <see cref="RawPressedStyle"/>, <b>used for setting styles in code</b> when node is pressed on.
+        /// </summary>
+        public ParsedStyle PressedStyle { get; set; }
 
         /// <summary>
         /// The current parsed style, can be multiple parsed styles merged. Mostly for reading, but can be changed. 
@@ -193,14 +206,35 @@ namespace HarmoniaUI.Nodes
         public ILayoutEngine LayoutEngine { get; set; }
 
         /// <summary>
-        /// Whether the node is focused currently.
+        /// The layout engine responsible for measuring and arranging this node and its children.
+        /// Can be replaced to customize layout algorithms.
+        /// </summary>
+        public IInputEngine InputEngine { get; set; }
+
+        /// <summary>
+        /// Whether the node is currently focused on.
         /// </summary>
         public bool IsFocused { get; private set; } = false;
 
         /// <summary>
-        /// Whether the node is hovered on currently.
+        /// Whether the node is currently hovered on.
         /// </summary>
         public bool IsHovered { get; private set; } = false;
+
+        /// <summary>
+        /// Whether the node is currently pressed.
+        /// </summary>
+        public bool IsPressed { get; private set; } = false;
+
+        /// <summary>
+        /// Event that invokes whenever the node is pressed.
+        /// </summary>
+        public event Action<UINode, InputEvent> Pressed;
+
+        /// <summary>
+        /// Event that invokes whenever the node is released (not pressed anymore)
+        /// </summary>
+        public event Action<UINode, InputEvent> Released;
 
         /// <summary>
         /// Cached style for merging, used to limit allocations.
@@ -228,6 +262,7 @@ namespace HarmoniaUI.Nodes
             NormalStyle = StyleParser.Parse(NormalStyle, RawNormalStyle);
             HoveredStyle = StyleParser.Parse(HoveredStyle, RawHoveredStyle);
             FocusedStyle = StyleParser.Parse(FocusedStyle, RawFocusedStyle);
+            PressedStyle = StyleParser.Parse(PressedStyle, RawPressedStyle);
 
             Vector2 viewportSize = ViewportHelper.GetViewportSize(this);
             Vector2 parentSize = Parent == null ? viewportSize : new Vector2(Parent.ContentWidth, Parent.ContentHeight);
@@ -238,11 +273,13 @@ namespace HarmoniaUI.Nodes
             StyleComputer.Compute(ComputedStyle, NormalStyle, viewportSize, parentSize);
             VisualEngine = UIEngines.Visual.GetEngine(RawCurrentStyle.VisualResource);
             LayoutEngine = UIEngines.Layout.GetEngine(RawCurrentStyle.LayoutResource);
+            InputEngine = UIEngines.Input.GetEngine(RawCurrentStyle.InputResource);
             LayoutEngine.ComputeSize(this, ComputedStyle, RawNormalStyle.LayoutResource);
 
             NormalStyle.Changed += StyleChanged;
             if(HoveredStyle != null) HoveredStyle.Changed += StyleChanged;
             if(FocusedStyle != null) FocusedStyle.Changed += StyleChanged;
+            if(PressedStyle != null) PressedStyle.Changed += StyleChanged;
 
             if (IsRoot()) GetViewport().SizeChanged += ViewportSizeChange;
 
@@ -250,21 +287,30 @@ namespace HarmoniaUI.Nodes
             MouseExited += HandleMouseExited;
             FocusEntered += HandleFocusEntered;
             FocusExited += HandleFocusExited;
+            Pressed += UINode_Pressed;
+            Released += UINode_Released;
         }
 
         /// <summary>
-        /// Handles the hover and focus interactions, merges the styles when hovered or focused.
+        /// Handles the hover, focus and press interactions, merges those styles when active.
         /// </summary>
         private void HandleInteractions()
         {
             CurrentStyle = NormalStyle;
 
-            if (IsHovered) {
-                CurrentStyle = StyleMerger.Merge(NormalStyle, HoveredStyle, ref _mergingCache);
+            if (IsHovered) 
+            {
+                CurrentStyle = StyleMerger.Merge(CurrentStyle, HoveredStyle, ref _mergingCache);
             }
 
-            if (IsFocused){
+            if (IsFocused)
+            {
                 CurrentStyle = StyleMerger.Merge(CurrentStyle, FocusedStyle, ref _mergingCache);
+            }
+
+            if (IsPressed)
+            {
+                CurrentStyle = StyleMerger.Merge(CurrentStyle, PressedStyle, ref _mergingCache);
             }
         }
 
@@ -283,7 +329,7 @@ namespace HarmoniaUI.Nodes
         /// </remarks>
         public override void _Draw()
         {
-            VisualEngine.Draw(this, ComputedStyle, RawCurrentStyle.VisualResource);
+            VisualEngine.Draw(this, ComputedStyle, CurrentStyle.VisualResource);
         }
 
         /// <summary>
@@ -300,6 +346,50 @@ namespace HarmoniaUI.Nodes
             MouseExited -= HandleMouseExited;
             FocusEntered -= HandleFocusEntered;
             FocusExited -= HandleFocusExited;
+        }
+
+        /// <summary>
+        /// Handles the gui press event and invokes the <see cref="InputEngine"/>.
+        /// </summary>
+        /// <param name="event">Event to be handled</param>
+        public override void _GuiInput(InputEvent @event)
+        {
+#if DEBUG
+            if (Engine.IsEditorHint()) return;
+#endif
+            InputEngine.GuiInput(this, @event, CurrentStyle.InputResource);
+
+            if(TryGetPress(@event, out bool pressed))
+            {
+                if (pressed) Click(@event);
+                else Unclick(@event);
+            }
+        }
+
+        /// <summary>
+        /// Handles the press event and invokes the <see cref="InputEngine"/>.
+        /// </summary>
+        /// <param name="event">Event to be handled</param>
+        public override void _Input(InputEvent @event)
+        {
+#if DEBUG
+            if (Engine.IsEditorHint()) return;
+#endif
+            InputEngine.Input(this, @event, CurrentStyle.InputResource);
+            if (IsPressed)
+            {
+                if(TryGetPress(@event, out bool _))
+                {
+                    Unclick(@event);
+                }
+            }
+            else
+            {
+                if (IsFocused && TryGetFocusedPress(@event, out var pressed))
+                {
+                    Click(@event);
+                }
+            }
         }
 
         /// <summary>
@@ -339,7 +429,7 @@ namespace HarmoniaUI.Nodes
                 }
             }
 
-            LayoutEngine.ApplyLayout(this, ComputedStyle, RawCurrentStyle.LayoutResource);
+            LayoutEngine.ApplyLayout(this, ComputedStyle, CurrentStyle.LayoutResource);
             QueueRedraw();
         }
 
@@ -356,7 +446,7 @@ namespace HarmoniaUI.Nodes
             Vector2 parentSize = Parent == null ? viewportSize : new Vector2(Parent.ContentWidth, Parent.ContentHeight);
 
             StyleComputer.Compute(ComputedStyle, CurrentStyle, viewportSize, parentSize);
-            LayoutEngine.ComputeSize(this, ComputedStyle, RawCurrentStyle.LayoutResource);
+            LayoutEngine.ComputeSize(this, ComputedStyle, CurrentStyle.LayoutResource);
         }
 
         /// <summary>
@@ -475,6 +565,131 @@ namespace HarmoniaUI.Nodes
             IsHovered = true;
             HandleInteractions();
             UpdateParentOrSelf();
+        }
+
+        /// <summary>
+        /// Handles the UINode <see cref="IsPressed"/> being unpressed/released.
+        /// </summary>
+        /// <param name="node">Node from a which pressed event fires (this)</param>
+        /// <param name="event">Event associated with the press</param>
+        private void UINode_Released(UINode node, InputEvent @event)
+        {
+            IsPressed = false;
+            HandleInteractions();
+            UpdateParentOrSelf();
+        }
+
+        /// <summary>
+        /// Handles the UINode <see cref="IsPressed"/> being pressed.
+        /// </summary>
+        /// <param name="node">Node from a which pressed event fires (this)</param>
+        /// <param name="event">Event associated with the press</param>
+        private void UINode_Pressed(UINode node, InputEvent @event)
+        {
+            IsPressed = true;
+            HandleInteractions();
+            UpdateParentOrSelf();
+        }
+
+        /// <summary>
+        /// Unclicks the node, turning <see cref="IsPressed"/> to false, and invoking <see cref="Released"/>
+        /// </summary>
+        /// <param name="event">Event associated with release</param>
+        private void Unclick(InputEvent @event)
+        {
+            IsPressed = false;
+            Released?.Invoke(this, @event);
+        }
+
+        /// <summary>
+        /// Clicks the node, turning <see cref="IsPressed"/> to true, and invoking <see cref="Pressed"/>
+        /// </summary>
+        /// <param name="event">Event associated with press</param>
+        private void Click(InputEvent @event)
+        {
+            IsPressed = true;
+            Pressed?.Invoke(this, @event);
+        }
+
+        /// <summary>
+        /// Gets information whether input was a click-type event, and whether it was released or pressed.
+        /// </summary>
+        /// <param name="event">Event to be processed</param>
+        /// <param name="pressed">Whether the click-type event was pressed (true) or released (false)</param>
+        /// <returns>True if the input is a click-type event; false otherwise</returns>
+        /// <remarks>
+        /// Doesn't account for focus, so events not requiring focus are handled.
+        /// for focus required inputs use <see cref="TryGetFocusedPress(InputEvent, out bool)"/>
+        /// </remarks>
+        private bool TryGetPress(InputEvent @event, out bool pressed)
+        {
+            pressed = false;
+
+            switch (@event)
+            {
+                case InputEventMouseButton mouse:
+                    if (mouse.ButtonIndex != MouseButton.Left) return false;
+                    pressed = mouse.Pressed;
+                    return true;
+
+                case InputEventScreenTouch touch:
+                    pressed = touch.Pressed;
+                    return true;
+
+                case InputEventJoypadButton joypad:
+                    if (joypad.ButtonIndex != JoyButton.X) return false;
+                    pressed = joypad.Pressed;
+                    return true;
+                case InputEventKey keyboard:
+                    if(keyboard.Keycode == Key.Enter
+                    || keyboard.Keycode == Key.Space
+                    || keyboard.Keycode == Key.KpEnter)
+                    {
+                        pressed = keyboard.Pressed;
+                        return true;
+                    }
+                    return false;
+
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets information whether input was a click-type event specifically for focus required
+        /// input types and whether it was released or pressed.
+        /// </summary>
+        /// <param name="event">Event to be processed</param>
+        /// <param name="pressed">Whether the click-type event was pressed (true) or released (false)</param>
+        /// <returns>True if the input is a click-type event; false otherwise</returns>
+        /// <remarks>
+        /// Explanation: Some events need to be handled globally in <see cref="_Input(InputEvent)"/> so focused
+        /// nodes can be selected, but it can't handle inputs not requiring focus, because it would click all
+        /// nodes then.
+        /// </remarks>
+        private bool TryGetFocusedPress(InputEvent @event, out bool pressed)
+        {
+            pressed = false;
+
+            switch (@event)
+            {
+                case InputEventJoypadButton joypad:
+                    if (joypad.ButtonIndex != JoyButton.X) return false;
+                    pressed = joypad.Pressed;
+                    return true;
+                case InputEventKey keyboard:
+                    if(keyboard.Keycode == Key.Enter
+                    || keyboard.Keycode == Key.Space
+                    || keyboard.Keycode == Key.KpEnter)
+                    {
+                        pressed = keyboard.Pressed;
+                        return true;
+                    }
+                    return false;
+
+                default:
+                    return false;
+            }
         }
 
         /// <summary>

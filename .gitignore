@@ -1,5 +1,6 @@
 # GDUnit specific ignores
 /godot/reports
+/godot/android
 
 # Godot 4+ specific ignores
 .godot/

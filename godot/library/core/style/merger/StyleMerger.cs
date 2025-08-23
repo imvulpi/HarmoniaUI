@@ -30,6 +30,9 @@ namespace HarmoniaUI.Core.Style.Merger
             if (primary == null) return secondary;
             if (secondary == null) return primary;
 
+            result.LayoutResource = (Interfaces.LayoutResource)MergeResource(primary.LayoutResource, secondary.LayoutResource);
+            result.VisualResource = (Interfaces.VisualResource)MergeResource(primary.VisualResource, secondary.VisualResource);
+            result.InputResource = (Interfaces.InputResource)MergeResource(primary.InputResource, secondary.InputResource);
             result.Visibility = (VisibilityType)MergeEnum((int)primary.Visibility, (int)secondary.Visibility);
             result.PositioningType = (PositionType)MergeEnum((int)primary.PositioningType, (int)secondary.PositioningType);
             result.SizingType = (SizingType)MergeEnum((int)primary.SizingType, (int)secondary.SizingType);
@@ -51,6 +54,15 @@ namespace HarmoniaUI.Core.Style.Merger
             result.PositionX = MergeStyleValue(primary.PositionX, secondary.PositionX);
             result.PositionY = MergeStyleValue(primary.PositionY, secondary.PositionY);
             return result;
+        }
+
+        private static Resource MergeResource(Resource primary, Resource secondary)
+        {
+            if (secondary == null)
+            {
+                return primary;
+            }
+            return secondary;
         }
 
         private static int MergeEnum(int primary, int secondary)

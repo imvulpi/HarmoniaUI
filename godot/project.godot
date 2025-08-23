@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="HarmoniaUI"
+run/main_scene="uid://bl15r1it443in"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -33,3 +34,4 @@ report/godot/push_error=true
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
