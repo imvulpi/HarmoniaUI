@@ -18,7 +18,8 @@ namespace HarmoniaUI.Nodes
 
         private bool _hoverPreview;
         private bool _focusPreview;
-        
+        private bool _pressPreview;
+
         [Export]
         private bool Preview_OnHover { get => _hoverPreview; set
             {
@@ -28,12 +29,23 @@ namespace HarmoniaUI.Nodes
                 Preview_UpdateStyle();
             }
         }
+       
         [Export]
         private bool Preview_OnFocus { get => _focusPreview; set
             {
                 if (!Engine.IsEditorHint()) return;
                 _focusPreview = value;
                 IsFocused = value;
+                Preview_UpdateStyle();
+            }
+        }
+
+        [Export]
+        private bool Preview_OnPressed { get => _pressPreview; set
+            {
+                if (!Engine.IsEditorHint()) return;
+                _pressPreview = value;
+                IsPressed = value;
                 Preview_UpdateStyle();
             }
         }
@@ -55,6 +67,7 @@ namespace HarmoniaUI.Nodes
             preview_elapsedMs += (float)delta * 1000;
             if (preview_elapsedMs > preview_intervalMs)
             {
+                preview_elapsedMs = 0;
                 Preview_UpdateStyle();
 
                 // Weird situation in here, but when rebuilding all of the properties are nullified,
@@ -73,11 +86,11 @@ namespace HarmoniaUI.Nodes
                     NormalStyle = StyleParser.Parse(NormalStyle, RawNormalStyle);
                     HoveredStyle = StyleParser.Parse(HoveredStyle, RawHoveredStyle);
                     FocusedStyle = StyleParser.Parse(FocusedStyle, RawFocusedStyle);
+                    PressedStyle = StyleParser.Parse(PressedStyle, RawPressedStyle);
                     StyleComputer.Compute(ComputedStyle, CurrentStyle, viewportSize, parentSize);
                     LayoutEngine.ComputeSize(this, ComputedStyle, RawCurrentStyle.LayoutResource);
                     LayoutEngine.ApplyLayout(this, ComputedStyle, RawCurrentStyle.LayoutResource);
                     QueueRedraw();
-                    preview_elapsedMs = 0;
                 }
             }
         }
@@ -93,6 +106,7 @@ namespace HarmoniaUI.Nodes
             NormalStyle = StyleParser.Parse(NormalStyle, RawNormalStyle);
             HoveredStyle = StyleParser.Parse(HoveredStyle, RawHoveredStyle);
             FocusedStyle = StyleParser.Parse(FocusedStyle, RawFocusedStyle);
+            PressedStyle = StyleParser.Parse(PressedStyle, RawPressedStyle);
 
             Vector2 viewportSize = ViewportHelper.GetViewportSize(this);
             Vector2 parentSize = Parent == null ? viewportSize : new Vector2(Parent.ContentWidth, Parent.ContentHeight);
@@ -101,8 +115,8 @@ namespace HarmoniaUI.Nodes
             RawCurrentStyle = RawNormalStyle;
 
             StyleComputer.Compute(ComputedStyle, NormalStyle, viewportSize, parentSize);
-            VisualEngine = UIEngines.Visual.GetEngine(RawNormalStyle.VisualResource);
-            LayoutEngine = UIEngines.Layout.GetEngine(RawNormalStyle.LayoutResource);
+            VisualEngine = UIEngines.Visual.GetEngine(RawCurrentStyle.VisualResource);
+            LayoutEngine = UIEngines.Layout.GetEngine(RawCurrentStyle.LayoutResource);
             LayoutEngine.ComputeSize(this, ComputedStyle, RawNormalStyle.LayoutResource);
         }
 #endif

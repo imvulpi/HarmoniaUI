@@ -1,15 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbyh5iegs6ab6"]
+[gd_scene load_steps=11 format=3 uid="uid://cbyh5iegs6ab6"]
 
-[ext_resource type="Script" uid="uid://clsl6vx4qpjvj" path="res://tests/utils/TestsRepo.cs" id="1_4niff"]
-[ext_resource type="Script" uid="uid://bchvhrkl3by33" path="res://tests/utils/ColorTest.cs" id="2_gjsbs"]
-[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="3_66yxm"]
-[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="4_e82dv"]
-[ext_resource type="Resource" uid="uid://6pqye060qplf" path="res://tests/scenes/HoverAndFocusTest_Subject_Normal.tres" id="5_gjsbs"]
-[ext_resource type="Resource" uid="uid://cyalp7qe665ig" path="res://tests/scenes/HoverAndFocusTest_Subject_Hover.tres" id="6_e82dv"]
-[ext_resource type="Resource" uid="uid://bm4fqrq5v2dbl" path="res://tests/scenes/HoverAndFocusTest_Subject_Focus.tres" id="7_goq0r"]
+[ext_resource type="Script" uid="uid://clsl6vx4qpjvj" path="res://tests/utils/TestsRepo.cs" id="1_foibp"]
+[ext_resource type="Script" uid="uid://bchvhrkl3by33" path="res://tests/utils/ColorTest.cs" id="2_kifha"]
+[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="3_v3h2h"]
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="4_gh7f2"]
+[ext_resource type="Resource" uid="uid://6pqye060qplf" path="res://tests/scenes/InteractionTest_Subject_Normal.tres" id="5_lhoe7"]
+[ext_resource type="Resource" uid="uid://cyalp7qe665ig" path="res://tests/scenes/InteractionTest_Subject_Hover.tres" id="6_l3bdg"]
+[ext_resource type="Resource" uid="uid://bm4fqrq5v2dbl" path="res://tests/scenes/InteractionTest_Subject_Focus.tres" id="7_rjh7a"]
+[ext_resource type="Resource" uid="uid://dmp8df2pmndnp" path="res://tests/scenes/InteractionTest_Subject_Pressed.tres" id="8_kifha"]
 
 [sub_resource type="Resource" id="Resource_hslmk"]
-script = ExtResource("4_e82dv")
+script = ExtResource("4_gh7f2")
 Visibility = 0
 SizingType = 0
 Width = ""
@@ -32,7 +33,7 @@ PositionX = ""
 PositionY = ""
 
 [sub_resource type="Resource" id="Resource_0srvg"]
-script = ExtResource("4_e82dv")
+script = ExtResource("4_gh7f2")
 Visibility = -1
 SizingType = -1
 Width = ""
@@ -55,21 +56,21 @@ PositionX = ""
 PositionY = ""
 metadata/_custom_type_script = "uid://b3al2knqpp5q"
 
-[node name="HoverAndFocusTest" type="Control" node_paths=PackedStringArray("TestNodes")]
+[node name="InteractionTest" type="Control" node_paths=PackedStringArray("TestNodes")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_4niff")
+script = ExtResource("1_foibp")
 TestNodes = [NodePath("HoverColorTest")]
 
 [node name="HoverColorTest" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
-script = ExtResource("2_gjsbs")
+script = ExtResource("2_kifha")
 Width = "100vw"
 Height = "100vh"
 ExpectedColor = Color(1, 1, 1, 1)
@@ -80,7 +81,7 @@ metadata/_custom_type_script = "uid://bchvhrkl3by33"
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
-script = ExtResource("3_66yxm")
+script = ExtResource("3_v3h2h")
 RawNormalStyle = SubResource("Resource_hslmk")
 RawHoveredStyle = SubResource("Resource_0srvg")
 metadata/_custom_type_script = "uid://24cno45fapa6"
@@ -90,8 +91,9 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 focus_mode = 1
-script = ExtResource("3_66yxm")
-RawNormalStyle = ExtResource("5_gjsbs")
-RawHoveredStyle = ExtResource("6_e82dv")
-RawFocusedStyle = ExtResource("7_goq0r")
+script = ExtResource("3_v3h2h")
+RawNormalStyle = ExtResource("5_lhoe7")
+RawHoveredStyle = ExtResource("6_l3bdg")
+RawFocusedStyle = ExtResource("7_rjh7a")
+RawPressedStyle = ExtResource("8_kifha")
 metadata/_custom_type_script = "uid://24cno45fapa6"

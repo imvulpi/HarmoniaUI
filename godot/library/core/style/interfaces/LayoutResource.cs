@@ -12,7 +12,7 @@ namespace HarmoniaUI.Core.Style.Interfaces
     /// 
     /// <para>
     /// This resource can be assigned in the editor or via code through 
-    /// <see cref="Raw.StyleResource.LayoutResource"/>. If no layout resource is assigned, 
+    /// <see cref="Parsed.ParsedStyle.LayoutResource"/>. If no layout resource is assigned, 
     /// or the assigned layout resource is not supported by any custom engines the
     /// HarmoniaUI falls back to the default layout engine and its default configuration.
     /// </para>

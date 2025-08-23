@@ -14,7 +14,7 @@ namespace HarmoniaUI.Core.Style.Interfaces
     /// borders, shadows, gradients, and other visual decorations.
     /// 
     /// This resource can be assigned in the editor or via code through 
-    /// <see cref="Raw.StyleResource.VisualResource"/>. If no visual resource is assigned, 
+    /// <see cref="Parsed.ParsedStyle.VisualResource"/>. If no visual resource is assigned, 
     /// or the assigned visual resource is not supported by any custom engines the
     /// HarmoniaUI falls back to the default visual engine with its default settings.
     /// 

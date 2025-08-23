@@ -23,13 +23,20 @@ namespace HarmoniaUI.Core.Style.Parsed
     /// parsing keeps it clean and fast to check and iterate over, when converting to pixels.
     /// </para>
     /// </remarks>
-    public class ParsedStyle : IStyle<StyleValue, StyleSides<StyleValue>>
+    public class ParsedStyle : IStyle<StyleValue, StyleSides<StyleValue>>, IStyleCustomResources
     {
         /// <summary>
         /// An event that triggers whenether any property changes,
         /// <see cref="UINodeAction"/> suggests what action the node should perform
         /// </summary>
         public event Action<UINodeAction> Changed;
+
+        #region Custom Resources
+        public LayoutResource LayoutResource { get; set; }
+        public VisualResource VisualResource { get; set; }
+        public InputResource InputResource { get; set; }
+
+        #endregion
 
         #region Behaviour
 
