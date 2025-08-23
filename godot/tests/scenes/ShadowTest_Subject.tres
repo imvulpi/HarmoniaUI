@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="StyleResource" load_steps=2 format=3 uid="uid://bwehest5y03b8"]
+
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="1_urs7p"]
+
+[resource]
+script = ExtResource("1_urs7p")
+Visibility = 0
+SizingType = 0
+Width = "50%"
+Height = "50%"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 0.537255, 0.713726, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 1)
+ShadowOffsetX = "10%"
+ShadowOffsetY = "10%"
+PositioningType = 1
+PositionX = "25%"
+PositionY = "25%"

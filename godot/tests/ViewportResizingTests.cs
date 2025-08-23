@@ -38,10 +38,10 @@ namespace HarmoniaUI.Tests
             root.AddChild(child);
 
             ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(1, Unit.Percent);
-            root.ParsedStyle.Height = new StyleValue(1, Unit.Percent);
-            child.ParsedStyle.Width = new StyleValue(0.5f, Unit.Percent);
-            child.ParsedStyle.Height = new StyleValue(0.5f, Unit.Percent);
+            root.NormalStyle.Width = new StyleValue(1, Unit.Percent);
+            root.NormalStyle.Height = new StyleValue(1, Unit.Percent);
+            child.NormalStyle.Width = new StyleValue(0.5f, Unit.Percent);
+            child.NormalStyle.Height = new StyleValue(0.5f, Unit.Percent);
             Vector2I originalViewportSize = root.GetWindow().Size;
             root.GetWindow().Size = new(width, height);
             Vector2 viewportSize = ViewportHelper.GetViewportSize(root);

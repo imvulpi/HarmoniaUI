@@ -33,20 +33,20 @@ namespace HarmoniaUI.Tests
             root.AddChild(child1);
             root.AddChild(child2);
             ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(1, Unit.Percent);
-            root.ParsedStyle.Height = new StyleValue(1, Unit.Percent);
+            root.NormalStyle.Width = new StyleValue(1, Unit.Percent);
+            root.NormalStyle.Height = new StyleValue(1, Unit.Percent);
             
-            child1.ParsedStyle.Width = new StyleValue(500f, Unit.Pixel);
-            child1.ParsedStyle.Height = new StyleValue(500f, Unit.Pixel);
-            child1.ParsedStyle.Visibility = VisibilityType.Visible;
+            child1.NormalStyle.Width = new StyleValue(500f, Unit.Pixel);
+            child1.NormalStyle.Height = new StyleValue(500f, Unit.Pixel);
+            child1.NormalStyle.Visibility = VisibilityType.Visible;
             
-            child2.ParsedStyle.Width = new StyleValue(500f, Unit.Pixel);
-            child2.ParsedStyle.Height = new StyleValue(500f, Unit.Pixel);
-            child2.ParsedStyle.Visibility = VisibilityType.Visible;
+            child2.NormalStyle.Width = new StyleValue(500f, Unit.Pixel);
+            child2.NormalStyle.Height = new StyleValue(500f, Unit.Pixel);
+            child2.NormalStyle.Visibility = VisibilityType.Visible;
 
 
-            Assertions.AssertInt((int)child2.ParsedStyle.Visibility).IsEqual((int)VisibilityType.Visible);
-            Assertions.AssertInt((int)child1.ParsedStyle.Visibility).IsEqual((int)VisibilityType.Visible);
+            Assertions.AssertInt((int)child2.NormalStyle.Visibility).IsEqual((int)VisibilityType.Visible);
+            Assertions.AssertInt((int)child1.NormalStyle.Visibility).IsEqual((int)VisibilityType.Visible);
             Assertions.AssertBool(child2.Visible).IsEqual(true);
             Assertions.AssertBool(child1.Visible).IsEqual(true);
             Assertions.AssertVector(child2.Position).IsEqual(new Vector2(0, 500));
@@ -68,20 +68,20 @@ namespace HarmoniaUI.Tests
             root.AddChild(child1);
             root.AddChild(child2);
             ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(1, Unit.Percent);
-            root.ParsedStyle.Height = new StyleValue(1, Unit.Percent);
+            root.NormalStyle.Width = new StyleValue(1, Unit.Percent);
+            root.NormalStyle.Height = new StyleValue(1, Unit.Percent);
             
-            child1.ParsedStyle.Width = new StyleValue(500f, Unit.Pixel);
-            child1.ParsedStyle.Height = new StyleValue(500f, Unit.Pixel);
-            child1.ParsedStyle.Visibility = VisibilityType.Transparent;
+            child1.NormalStyle.Width = new StyleValue(500f, Unit.Pixel);
+            child1.NormalStyle.Height = new StyleValue(500f, Unit.Pixel);
+            child1.NormalStyle.Visibility = VisibilityType.Transparent;
             
-            child2.ParsedStyle.Width = new StyleValue(500f, Unit.Pixel);
-            child2.ParsedStyle.Height = new StyleValue(500f, Unit.Pixel);
-            child2.ParsedStyle.Visibility = VisibilityType.Transparent;
+            child2.NormalStyle.Width = new StyleValue(500f, Unit.Pixel);
+            child2.NormalStyle.Height = new StyleValue(500f, Unit.Pixel);
+            child2.NormalStyle.Visibility = VisibilityType.Transparent;
 
 
-            Assertions.AssertInt((int)child2.ParsedStyle.Visibility).IsEqual((int)VisibilityType.Transparent);
-            Assertions.AssertInt((int)child1.ParsedStyle.Visibility).IsEqual((int)VisibilityType.Transparent);
+            Assertions.AssertInt((int)child2.NormalStyle.Visibility).IsEqual((int)VisibilityType.Transparent);
+            Assertions.AssertInt((int)child1.NormalStyle.Visibility).IsEqual((int)VisibilityType.Transparent);
             Assertions.AssertBool(child2.Visible).IsEqual(false);
             Assertions.AssertBool(child1.Visible).IsEqual(false);
             Assertions.AssertVector(child2.Position).IsEqual(new Vector2(0, 500));
@@ -102,25 +102,25 @@ namespace HarmoniaUI.Tests
             root.AddChild(child3);
 
             ISceneRunner.Load(root);
-            root.ParsedStyle.Width = new StyleValue(1, Unit.Percent);
-            root.ParsedStyle.Height = new StyleValue(1, Unit.Percent);
+            root.NormalStyle.Width = new StyleValue(1, Unit.Percent);
+            root.NormalStyle.Height = new StyleValue(1, Unit.Percent);
             
-            child1.ParsedStyle.Width = new StyleValue(500f, Unit.Pixel);
-            child1.ParsedStyle.Height = new StyleValue(500f, Unit.Pixel);
-            child1.ParsedStyle.Visibility = VisibilityType.Visible;
+            child1.NormalStyle.Width = new StyleValue(500f, Unit.Pixel);
+            child1.NormalStyle.Height = new StyleValue(500f, Unit.Pixel);
+            child1.NormalStyle.Visibility = VisibilityType.Visible;
             
-            child2.ParsedStyle.Width = new StyleValue(500f, Unit.Pixel);
-            child2.ParsedStyle.Height = new StyleValue(500f, Unit.Pixel);
-            child2.ParsedStyle.Visibility = VisibilityType.Hidden;
+            child2.NormalStyle.Width = new StyleValue(500f, Unit.Pixel);
+            child2.NormalStyle.Height = new StyleValue(500f, Unit.Pixel);
+            child2.NormalStyle.Visibility = VisibilityType.Hidden;
 
-            child3.ParsedStyle.Width = new StyleValue(500f, Unit.Pixel);
-            child3.ParsedStyle.Height = new StyleValue(500f, Unit.Pixel);
-            child3.ParsedStyle.Visibility = VisibilityType.Visible;
+            child3.NormalStyle.Width = new StyleValue(500f, Unit.Pixel);
+            child3.NormalStyle.Height = new StyleValue(500f, Unit.Pixel);
+            child3.NormalStyle.Visibility = VisibilityType.Visible;
 
             Assertions.AssertVector(child3.Position).IsEqual(new Vector2(0, 500));
-            Assertions.AssertInt((int)child1.ParsedStyle.Visibility).IsEqual((int)VisibilityType.Visible);
-            Assertions.AssertInt((int)child2.ParsedStyle.Visibility).IsEqual((int)VisibilityType.Hidden);
-            Assertions.AssertInt((int)child3.ParsedStyle.Visibility).IsEqual((int)VisibilityType.Visible);
+            Assertions.AssertInt((int)child1.NormalStyle.Visibility).IsEqual((int)VisibilityType.Visible);
+            Assertions.AssertInt((int)child2.NormalStyle.Visibility).IsEqual((int)VisibilityType.Hidden);
+            Assertions.AssertInt((int)child3.NormalStyle.Visibility).IsEqual((int)VisibilityType.Visible);
             Assertions.AssertBool(child1.Visible).IsEqual(true);
             Assertions.AssertBool(child2.Visible).IsEqual(false);
             Assertions.AssertBool(child3.Visible).IsEqual(true);
