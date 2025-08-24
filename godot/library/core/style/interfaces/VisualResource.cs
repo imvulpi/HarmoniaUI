@@ -37,5 +37,6 @@ namespace HarmoniaUI.Core.Style.Interfaces
     [GlobalClass]
     public partial class VisualResource : Resource
     {
+        public virtual VisualResource Parse() { return this; }
     }
 }

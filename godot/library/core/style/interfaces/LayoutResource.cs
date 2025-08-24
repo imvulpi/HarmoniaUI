@@ -30,6 +30,6 @@ namespace HarmoniaUI.Core.Style.Interfaces
     [GlobalClass]
     public partial class LayoutResource : Resource
     {
-
+        public virtual LayoutResource Parse() { return this; }
     }
 }
