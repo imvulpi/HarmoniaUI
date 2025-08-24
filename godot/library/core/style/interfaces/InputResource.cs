@@ -30,6 +30,6 @@ namespace HarmoniaUI.Core.Style.Interfaces
     [GlobalClass]
     public partial class InputResource : Resource
     {
-
+        public virtual InputResource Parse() { return this; }
     }
 }

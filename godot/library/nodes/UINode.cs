@@ -271,9 +271,9 @@ namespace HarmoniaUI.Nodes
             RawCurrentStyle = RawNormalStyle;
 
             StyleComputer.Compute(ComputedStyle, NormalStyle, viewportSize, parentSize);
-            VisualEngine = UIEngines.Visual.GetEngine(RawCurrentStyle.VisualResource);
-            LayoutEngine = UIEngines.Layout.GetEngine(RawCurrentStyle.LayoutResource);
-            InputEngine = UIEngines.Input.GetEngine(RawCurrentStyle.InputResource);
+            VisualEngine = UIEngines.Visual.GetEngine(CurrentStyle.VisualResource);
+            LayoutEngine = UIEngines.Layout.GetEngine(CurrentStyle.LayoutResource);
+            InputEngine = UIEngines.Input.GetEngine(CurrentStyle.InputResource);
             LayoutEngine.ComputeSize(this, ComputedStyle, RawNormalStyle.LayoutResource);
 
             NormalStyle.Changed += StyleChanged;

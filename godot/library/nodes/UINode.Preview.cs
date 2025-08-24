@@ -87,9 +87,11 @@ namespace HarmoniaUI.Nodes
                     HoveredStyle = StyleParser.Parse(HoveredStyle, RawHoveredStyle);
                     FocusedStyle = StyleParser.Parse(FocusedStyle, RawFocusedStyle);
                     PressedStyle = StyleParser.Parse(PressedStyle, RawPressedStyle);
+                    VisualEngine = UIEngines.Visual.GetEngine(RawCurrentStyle.VisualResource);
+                    LayoutEngine = UIEngines.Layout.GetEngine(RawCurrentStyle.LayoutResource);
                     StyleComputer.Compute(ComputedStyle, CurrentStyle, viewportSize, parentSize);
                     LayoutEngine.ComputeSize(this, ComputedStyle, RawCurrentStyle.LayoutResource);
-                    LayoutEngine.ApplyLayout(this, ComputedStyle, RawCurrentStyle.LayoutResource);
+                    UpdateParentOrSelf();
                     QueueRedraw();
                 }
             }
