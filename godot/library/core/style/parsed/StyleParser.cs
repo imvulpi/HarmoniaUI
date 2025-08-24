@@ -43,6 +43,9 @@ namespace HarmoniaUI.Core.Style.Parsed
         {
             if(style == null) return null;
             target ??= new ParsedStyle();
+            target.LayoutResource = style.LayoutResource;
+            target.VisualResource = style.VisualResource;
+            target.InputResource = style.InputResource;
             target.SizingType = style.SizingType;
             target.Visibility = style.Visibility;
             target.Width = ParseValue(style.Width);

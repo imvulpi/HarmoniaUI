@@ -2,6 +2,7 @@ using HarmoniaUI.Core.Engines.Input;
 using HarmoniaUI.Core.Engines.Layout;
 using HarmoniaUI.Core.Engines.Visual;
 using HarmoniaUI.Core.Style.Interfaces;
+using HarmoniaUI.library.core.engines.layout.flex;
 
 namespace HarmoniaUI.Core.Engines.Registry
 {
@@ -36,6 +37,8 @@ namespace HarmoniaUI.Core.Engines.Registry
 
             // Other registries here \/
             // Put your custom engines here, or other parts of the code if you prefer.
+            FlexLayoutEngine flexLayoutEngine = new();
+            Layout.Register<FlexLayoutResource>(flexLayoutEngine);
         }
 
         /// <summary>

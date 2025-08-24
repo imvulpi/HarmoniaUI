@@ -1,0 +1,155 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjynjbtgb5hm6"]
+
+[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="1_3y7as"]
+[ext_resource type="Script" uid="uid://ly72yhvqn7sx" path="res://library/core/engines/layout/flex/FlexLayoutResource.cs" id="2_nxocu"]
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="2_yh4gp"]
+
+[sub_resource type="Resource" id="Resource_4knn7"]
+script = ExtResource("2_nxocu")
+Wrap = 2
+Direction = 0
+JustifyContent = 0
+AlignItems = 0
+AlignContent = 0
+Gap = ""
+metadata/_custom_type_script = "uid://ly72yhvqn7sx"
+
+[sub_resource type="Resource" id="Resource_nxocu"]
+script = ExtResource("2_yh4gp")
+Visibility = 0
+LayoutResource = SubResource("Resource_4knn7")
+SizingType = 0
+Width = "300px"
+Height = "100px"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0, 0, 0, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="Resource" id="Resource_yh4gp"]
+script = ExtResource("2_yh4gp")
+Visibility = 0
+SizingType = 0
+Width = "100px"
+Height = "100px"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0.654902, 0.678431, 1, 0.301961)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="Resource" id="Resource_qyje8"]
+script = ExtResource("2_yh4gp")
+Visibility = 0
+SizingType = 0
+Width = "100px"
+Height = "100px"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0.710517, 0.429028, 0.992227, 0.301961)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="Resource" id="Resource_vtm1n"]
+script = ExtResource("2_yh4gp")
+Visibility = 0
+SizingType = 0
+Width = "100px"
+Height = "100px"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0.495702, 0.502207, 1, 0.533333)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[node name="UINode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 200.0
+script = ExtResource("1_3y7as")
+RawNormalStyle = SubResource("Resource_nxocu")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="UINode" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 200.0
+script = ExtResource("1_3y7as")
+RawNormalStyle = SubResource("Resource_yh4gp")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="UINode2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 200.0
+offset_right = 300.0
+offset_bottom = 100.0
+script = ExtResource("1_3y7as")
+RawNormalStyle = SubResource("Resource_qyje8")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="UINode3" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 100.0
+offset_right = 200.0
+offset_bottom = 100.0
+script = ExtResource("1_3y7as")
+RawNormalStyle = SubResource("Resource_yh4gp")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="UINode4" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_3y7as")
+RawNormalStyle = SubResource("Resource_vtm1n")
+metadata/_custom_type_script = "uid://24cno45fapa6"

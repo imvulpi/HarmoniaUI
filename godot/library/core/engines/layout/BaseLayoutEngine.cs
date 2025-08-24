@@ -4,6 +4,7 @@ using HarmoniaUI.Core.Style.Computed;
 using HarmoniaUI.Core.Style.Interfaces;
 using HarmoniaUI.Nodes;
 using System;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Utilities;
 
 namespace HarmoniaUI.Core.Engines.Layout
 {
@@ -31,20 +32,8 @@ namespace HarmoniaUI.Core.Engines.Layout
     {
         public virtual void ApplyLayout(UINode node, ComputedStyle style, LayoutResource layout)
         {
-            if (style.Visibility == VisibilityType.Hidden)
-            {
-                node.Visible = false;
-                return;
-            }
-            else if (style.Visibility == VisibilityType.Transparent)
-                node.Visible = false;
-            else 
-                node.Visible = true;
-
-            if (style.PositioningType == PositionType.Absolute)
-            {
-                node.GlobalPosition = new Vector2(style.PositionX, style.PositionY);
-            }
+            if (!HandleVisibility(node, style, layout)) return;
+            HandleAbsolutePositioning(node, style, layout);
 
             var children = node.GetChildren();
             float xOffset = node.GlobalPosition.X + style.Padding.Left + style.BorderWidth.Left;
@@ -84,6 +73,35 @@ namespace HarmoniaUI.Core.Engines.Layout
                     yOffset += godotNode.Size.Y;
                 }
             }
+        }
+
+        protected virtual void HandleAbsolutePositioning(UINode node, ComputedStyle style, LayoutResource layout)
+        {
+            if (style.PositioningType == PositionType.Absolute)
+            {
+                node.GlobalPosition = new Vector2(style.PositionX, style.PositionY);
+            }
+        }
+
+        /// <summary>
+        /// Applies the visibility, and returns a bool whether applying layout should continue
+        /// </summary>
+        /// <param name="node">The Harmonia UI node to update the visibility for.</param>
+        /// <param name="style">The <see cref="ComputedStyle"/> that defines node visibilityparam>
+        /// <param name="layout">The <see cref="LayoutResource"/> which provides custom layout styling</param>
+        /// <returns>True if applying layout should continue; False if it should stop</returns>
+        protected virtual bool HandleVisibility(UINode node, ComputedStyle style, LayoutResource layout)
+        {
+            if (style.Visibility == VisibilityType.Hidden)
+            {
+                node.Visible = false;
+                return false;
+            }
+            else if (style.Visibility == VisibilityType.Transparent)
+                node.Visible = false;
+            else
+                node.Visible = true;
+            return true;
         }
 
         public virtual void ComputeSize(UINode node, ComputedStyle style, LayoutResource layout)
