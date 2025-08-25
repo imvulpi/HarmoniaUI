@@ -14,10 +14,10 @@ namespace HarmoniaUI.library.core.engines.layout.flex
         public FlexDirection Direction { get; set; }
 
         [Export]
-        public FlexJustifyContent JustifyContent { get; set; }
+        public FlexJustifyContent JustifyX { get; set; }
 
         [Export]
-        public FlexAlignItems AlignItems { get; set; }
+        public FlexJustifyContent JustifyY { get; set; }
 
         [Export]
         public FlexAlignContent AlignContent { get; set; }

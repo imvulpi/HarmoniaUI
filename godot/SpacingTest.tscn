@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://buklcjc0tob3g"]
+
+[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="1_mlypt"]
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="2_j0wf7"]
+[ext_resource type="Script" uid="uid://ly72yhvqn7sx" path="res://library/core/engines/layout/flex/FlexLayoutResource.cs" id="2_y56hh"]
+
+[sub_resource type="Resource" id="Resource_hn56l"]
+script = ExtResource("2_y56hh")
+Wrap = 1
+Direction = 2
+JustifyX = 0
+JustifyY = 2
+AlignContent = 0
+Gap = ""
+metadata/_custom_type_script = "uid://ly72yhvqn7sx"
+
+[sub_resource type="Resource" id="Resource_y56hh"]
+script = ExtResource("2_j0wf7")
+Visibility = 0
+LayoutResource = SubResource("Resource_hn56l")
+SizingType = 0
+Width = "100px"
+Height = "100px"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 1, 1, 0)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[node name="SpacingTest" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_mlypt")
+RawNormalStyle = SubResource("Resource_y56hh")
+metadata/_custom_type_script = "uid://24cno45fapa6"

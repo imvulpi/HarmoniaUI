@@ -1,0 +1,249 @@
+[gd_scene load_steps=14 format=3 uid="uid://cqq76uvmg8nmi"]
+
+[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="1_2att6"]
+[ext_resource type="Script" uid="uid://ly72yhvqn7sx" path="res://library/core/engines/layout/flex/FlexLayoutResource.cs" id="2_vll6s"]
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="3_4ef33"]
+
+[sub_resource type="Resource" id="Resource_f48at"]
+script = ExtResource("2_vll6s")
+Wrap = 0
+Direction = 0
+JustifyX = 0
+JustifyY = 0
+AlignContent = 0
+Gap = ""
+metadata/_custom_type_script = "uid://ly72yhvqn7sx"
+
+[sub_resource type="Resource" id="Resource_aewue"]
+script = ExtResource("3_4ef33")
+Visibility = 0
+LayoutResource = SubResource("Resource_f48at")
+SizingType = 0
+Width = "100%"
+Height = "100px"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(0, 0.103996, 0.0971409, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="Resource" id="Resource_hiu4u"]
+script = ExtResource("3_4ef33")
+Visibility = 0
+SizingType = 0
+Width = "30%"
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 1, 1, 0)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="FontVariation" id="FontVariation_hiu4u"]
+variation_embolden = 0.78
+spacing_glyph = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_hiu4u"]
+font = SubResource("FontVariation_hiu4u")
+font_size = 48
+
+[sub_resource type="Resource" id="Resource_v6ox1"]
+script = ExtResource("2_vll6s")
+Wrap = 0
+Direction = 0
+JustifyX = 2
+JustifyY = 2
+AlignContent = 0
+Gap = ""
+metadata/_custom_type_script = "uid://ly72yhvqn7sx"
+
+[sub_resource type="Resource" id="Resource_n2ltp"]
+script = ExtResource("3_4ef33")
+Visibility = 0
+LayoutResource = SubResource("Resource_v6ox1")
+SizingType = 0
+Width = "70%"
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 1, 1, 0)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="Resource" id="Resource_w7ciy"]
+script = ExtResource("3_4ef33")
+Visibility = 0
+SizingType = 0
+Width = "20%"
+Height = "50%"
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 1, 1, 0)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[sub_resource type="FontVariation" id="FontVariation_aewue"]
+variation_embolden = 0.38
+
+[sub_resource type="LabelSettings" id="LabelSettings_f48at"]
+font = SubResource("FontVariation_aewue")
+font_size = 24
+
+[node name="UINode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 100.0
+script = ExtResource("1_2att6")
+RawNormalStyle = SubResource("Resource_aewue")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="Logo" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 345.6
+offset_bottom = 100.0
+script = ExtResource("1_2att6")
+RawNormalStyle = SubResource("Resource_hiu4u")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="Label" type="Label" parent="Logo"]
+layout_mode = 0
+offset_right = 345.6
+offset_bottom = 100.0
+text = "VULPI"
+label_settings = SubResource("LabelSettings_hiu4u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Links" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 345.6
+offset_right = 1152.0
+offset_bottom = 100.0
+script = ExtResource("1_2att6")
+RawNormalStyle = SubResource("Resource_n2ltp")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="UINode1" type="Control" parent="Links"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 80.64
+offset_top = 25.0
+offset_right = 241.92
+offset_bottom = 75.0
+script = ExtResource("1_2att6")
+RawNormalStyle = SubResource("Resource_w7ciy")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="Label" type="Label" parent="Links/UINode1"]
+layout_mode = 0
+offset_right = 161.28
+offset_bottom = 50.0
+text = "Our values"
+label_settings = SubResource("LabelSettings_f48at")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UINode2" type="Control" parent="Links"]
+anchors_preset = 0
+offset_left = 241.92
+offset_top = 25.0
+offset_right = 403.2
+offset_bottom = 75.0
+script = ExtResource("1_2att6")
+RawNormalStyle = SubResource("Resource_w7ciy")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="Label" type="Label" parent="Links/UINode2"]
+layout_mode = 0
+offset_right = 161.28
+offset_bottom = 50.0
+text = "Home"
+label_settings = SubResource("LabelSettings_f48at")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UINode3" type="Control" parent="Links"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 403.2
+offset_top = 25.0
+offset_right = 564.48
+offset_bottom = 75.0
+script = ExtResource("1_2att6")
+RawNormalStyle = SubResource("Resource_w7ciy")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="Label" type="Label" parent="Links/UINode3"]
+layout_mode = 0
+offset_right = 161.28
+offset_bottom = 50.0
+text = "Q&A"
+label_settings = SubResource("LabelSettings_f48at")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UINode4" type="Control" parent="Links"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 564.48
+offset_top = 25.0
+offset_right = 725.76
+offset_bottom = 75.0
+script = ExtResource("1_2att6")
+RawNormalStyle = SubResource("Resource_w7ciy")
+metadata/_custom_type_script = "uid://24cno45fapa6"
+
+[node name="Label" type="Label" parent="Links/UINode4"]
+layout_mode = 0
+offset_right = 161.28
+offset_bottom = 50.0
+text = "Contact"
+label_settings = SubResource("LabelSettings_f48at")
+horizontal_alignment = 1
+vertical_alignment = 1
