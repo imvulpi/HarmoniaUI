@@ -30,6 +30,10 @@ namespace HarmoniaUI.Core.Style.Interfaces
     [GlobalClass]
     public partial class InputResource : Resource
     {
+        /// <summary>
+        /// Parses the <see cref="InputResource"/> internally.
+        /// </summary>
+        /// <returns>Parsed <see cref="InputResource"/></returns>
         public virtual InputResource Parse() { return this; }
     }
 }

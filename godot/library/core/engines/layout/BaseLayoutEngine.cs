@@ -4,7 +4,6 @@ using HarmoniaUI.Core.Style.Computed;
 using HarmoniaUI.Core.Style.Interfaces;
 using HarmoniaUI.Nodes;
 using System;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Utilities;
 
 namespace HarmoniaUI.Core.Engines.Layout
 {
