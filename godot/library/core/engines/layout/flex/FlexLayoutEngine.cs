@@ -1,14 +1,26 @@
 using Godot;
 using HarmoniaUI.Commons;
-using HarmoniaUI.Core.Engines.Layout;
 using HarmoniaUI.Core.Style.Computed;
 using HarmoniaUI.Core.Style.Interfaces;
 using HarmoniaUI.Nodes;
 using System;
 using System.Collections.Generic;
 
-namespace HarmoniaUI.library.core.engines.layout.flex
+namespace HarmoniaUI.Core.Engines.Layout.Flex
 {
+    /// <summary>
+    /// Flexbox implementation engine which can be set and customized in nodes using <see cref="FlexLayoutResource"/>.
+    /// Positions children based on the wrapping, content size, direction and spacing.
+    /// </summary>
+    /// <remarks>
+    /// At the start it begins a collection and positioning phase, it doesn't space children yet.
+    /// It collects sizes of the lines and nodes in the lines, which later on get passed to the spacing phase
+    /// 
+    /// <para>
+    /// Spacing phase calculates the directional sum, and with the help of the line nodes and sizes, it
+    /// calculates the positioning accurate to the set <see cref="FlexJustifyContent"/> on X / Y axis.
+    /// </para>
+    /// </remarks>
     public class FlexLayoutEngine : BaseLayoutEngine
     {
         public override void ApplyLayout(UINode node, ComputedStyle style, LayoutResource layout)

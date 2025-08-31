@@ -30,6 +30,10 @@ namespace HarmoniaUI.Core.Style.Interfaces
     [GlobalClass]
     public partial class LayoutResource : Resource
     {
+        /// <summary>
+        /// Parses the <see cref="LayoutResource"/> internally.
+        /// </summary>
+        /// <returns>Parsed <see cref="LayoutResource"/></returns>
         public virtual LayoutResource Parse() { return this; }
     }
 }

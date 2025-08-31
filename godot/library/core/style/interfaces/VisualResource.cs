@@ -37,6 +37,10 @@ namespace HarmoniaUI.Core.Style.Interfaces
     [GlobalClass]
     public partial class VisualResource : Resource
     {
+        /// <summary>
+        /// Parses the <see cref="VisualResource"/> internally.
+        /// </summary>
+        /// <returns>Parsed <see cref="VisualResource"/></returns>
         public virtual VisualResource Parse() { return this; }
     }
 }
