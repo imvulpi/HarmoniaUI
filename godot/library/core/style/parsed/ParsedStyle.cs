@@ -32,9 +32,19 @@ namespace HarmoniaUI.Core.Style.Parsed
         public event Action<UINodeAction> Changed;
 
         #region Custom Resources
-        public LayoutResource LayoutResource { get; set; }
-        public VisualResource VisualResource { get; set; }
-        public InputResource InputResource { get; set; }
+
+        /// <inheritdoc cref="LayoutResource"/>
+        private LayoutResource _layoutResource = null;
+        
+        /// <inheritdoc cref="VisualResource"/>
+        private VisualResource _visualResource = null;
+        
+        /// <inheritdoc cref="InputResource"/>
+        private InputResource _inputResource = null;
+
+        public LayoutResource LayoutResource { get => _layoutResource; set => Set(ref _layoutResource, value, UINodeAction.Relayout | UINodeAction.Redraw); }
+        public VisualResource VisualResource { get => _visualResource; set => Set(ref _visualResource, value, UINodeAction.Relayout | UINodeAction.Redraw); }
+        public InputResource InputResource { get => _inputResource; set => Set(ref _inputResource, value, UINodeAction.Relayout | UINodeAction.Redraw); }
 
         #endregion
 
@@ -160,7 +170,7 @@ namespace HarmoniaUI.Core.Style.Parsed
         /// <param name="styleChanged">Style that was changed</param>
         private void Set<T>(ref T parameter, T value, UINodeAction styleChanged)
         {
-            if (parameter.Equals(value))
+            if (parameter != null && parameter.Equals(value))
             {
                 return;
             }

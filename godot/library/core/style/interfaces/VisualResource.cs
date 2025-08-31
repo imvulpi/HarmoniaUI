@@ -1,3 +1,4 @@
+using HarmoniaUI.Nodes;
 using Godot;
 
 namespace HarmoniaUI.Core.Style.Interfaces
@@ -42,5 +43,11 @@ namespace HarmoniaUI.Core.Style.Interfaces
         /// </summary>
         /// <returns>Parsed <see cref="VisualResource"/></returns>
         public virtual VisualResource Parse() { return this; }
+
+        /// <summary>
+        /// Computes the <see cref="VisualResource"/> internally.
+        /// </summary>
+        /// <returns>Computes <see cref="VisualResource"/></returns>
+        public virtual VisualResource Compute(UINode node) { return this; }
     }
 }

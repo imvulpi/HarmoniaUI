@@ -1,4 +1,7 @@
+using HarmoniaUI.Commons;
+using HarmoniaUI.Nodes;
 using Godot;
+using HarmoniaUI.Core.Style.Computed;
 using HarmoniaUI.Core.Style.Interfaces;
 using HarmoniaUI.Core.Style.Parsed;
 using HarmoniaUI.Core.Style.Types;
@@ -74,6 +77,10 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
         /// </remarks>
         public StyleValue GapColumn { get; set; }
 
+        public float GapRowPx { get; set; }
+
+        public float GapColumnPx { get; set; }
+
         /// <summary>
         /// Parses the <see cref="GapRaw"/>.
         /// </summary>
@@ -108,6 +115,14 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
 #else
             GapRaw = null;
 #endif
+            return this;
+        }
+
+        public override LayoutResource Compute(UINode node){
+            Vector2 contentSize = new(node.ContentWidth * node.Scale.X, node.ContentHeight * node.Scale.Y);
+            Vector2 viewportSize = ViewportHelper.GetViewportSize(node);
+            GapRowPx = StyleComputer.GetPixel(GapRow, viewportSize, contentSize, contentSize.X, 0);
+            GapColumnPx = StyleComputer.GetPixel(GapColumn, viewportSize, contentSize, contentSize.Y, 0);
             return this;
         }
     }
