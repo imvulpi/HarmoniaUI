@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxl7xs30hdhv1"]
+
+[ext_resource type="Script" uid="uid://24cno45fapa6" path="res://library/nodes/UINode.cs" id="1_njov2"]
+[ext_resource type="Script" uid="uid://b3al2knqpp5q" path="res://library/core/style/raw/StyleResource.cs" id="2_2au82"]
+
+[sub_resource type="Resource" id="Resource_8tn2x"]
+script = ExtResource("2_2au82")
+Visibility = 0
+SizingType = 0
+Width = ""
+Height = ""
+MinWidth = ""
+MinHeight = ""
+MaxWidth = ""
+MaxHeight = ""
+Padding = ""
+Margin = ""
+BackgroundColor = Color(1, 1, 1, 1)
+BorderRadius = ""
+BorderWidth = ""
+BorderColor = Color(1, 1, 1, 0)
+ShadowColor = Color(1, 1, 1, 0)
+ShadowOffsetX = ""
+ShadowOffsetY = ""
+PositioningType = 0
+PositionX = ""
+PositionY = ""
+
+[node name="UINode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_njov2")
+RawNormalStyle = SubResource("Resource_8tn2x")
+metadata/_custom_type_script = "uid://24cno45fapa6"

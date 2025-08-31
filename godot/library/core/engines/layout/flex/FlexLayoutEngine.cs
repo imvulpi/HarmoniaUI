@@ -2,6 +2,7 @@ using Godot;
 using HarmoniaUI.Commons;
 using HarmoniaUI.Core.Style.Computed;
 using HarmoniaUI.Core.Style.Interfaces;
+using HarmoniaUI.Core.Style.Types;
 using HarmoniaUI.Nodes;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,6 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
 
             var children = node.GetChildren();
 
-            float nodeOffsetX = node.GlobalPosition.X + style.Padding.Left + style.BorderWidth.Left;
-            float nodeOffsetY = node.GlobalPosition.Y + style.Padding.Top + style.BorderWidth.Top;
-            float xOffset = nodeOffsetX;
-            float yOffset = nodeOffsetY;
-
             if (layout is FlexLayoutResource flexLayout)
             {
                 bool wrapping = (flexLayout.Wrap == FlexWrap.Wrap || flexLayout.Wrap == FlexWrap.WrapReverse);
@@ -42,6 +38,10 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
                 Vector2 contentSize = new(node.ContentWidth * node.Scale.X, node.ContentHeight * node.Scale.Y);
                 Vector2 currentLine = new();
                 float biggest = 0;
+                float baseOffsetX = node.GlobalPosition.X + style.Padding.Left + style.BorderWidth.Left;
+                float baseOffsetY = node.GlobalPosition.Y + style.Padding.Top + style.BorderWidth.Top;
+                float xOffset = baseOffsetX;
+                float yOffset = baseOffsetY;
 
                 int currentLineIndex = 0;
                 List<Vector2> lineSizes = [new Vector2()];
@@ -50,15 +50,23 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
                 int start = 0;
                 int end = children.Count;
                 bool reverse = (flexLayout.Wrap == FlexWrap.WrapReverse);
-
+                flexLayout.Compute(node);
                 for (int i = reverse ? end - 1 : start;
                      reverse ? i >= start : i < end;
                      i += reverse ? -1 : 1)
                 {
                     var child = children[i];
-                    Vector2 childPosition = new(xOffset, yOffset);
+                    Vector2 newChildPosition = new(xOffset, yOffset);
                     if (child is UINode harmoniaNode)
                     {
+                        newChildPosition.X += harmoniaNode.ComputedStyle.Margin.Left;
+                        newChildPosition.Y += harmoniaNode.ComputedStyle.Margin.Top;
+                        if (harmoniaNode.ComputedStyle.PositioningType == PositionType.Relative)
+                        {
+                            newChildPosition.X += harmoniaNode.ComputedStyle.PositionX;
+                            newChildPosition.Y += harmoniaNode.ComputedStyle.PositionY;
+                        }
+
                         Vector2 harmoniaNodeSize = new(
                             (harmoniaNode.Size.X + harmoniaNode.ComputedStyle.Margin.Left + harmoniaNode.ComputedStyle.Margin.Right) * node.Scale.X,
                             (harmoniaNode.Size.Y + harmoniaNode.ComputedStyle.Margin.Top + harmoniaNode.ComputedStyle.Margin.Bottom) * node.Scale.Y
@@ -66,23 +74,23 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
 
                         if (flexLayout.Direction == FlexDirection.Column)
                         {
-                            float childFitDiff = (harmoniaNodeSize.Y) - (contentSize.Y - currentLine.Y);
-                            bool childFitsY = childFitDiff < 0 || childFitDiff <= 0.5f;
                             if (wrapping)
                             {
+                                float childFitDiff = (harmoniaNodeSize.Y) - (contentSize.Y - currentLine.Y);
+                                bool childFitsY = childFitDiff < 0 || childFitDiff <= 0.5f;                                
                                 if (childFitsY)
                                 {
-                                    currentLine.Y += harmoniaNodeSize.Y;
+                                    currentLine.Y += harmoniaNodeSize.Y + flexLayout.GapColumnPx;
                                     biggest = MathF.Max(harmoniaNodeSize.X, biggest);
                                     yOffset += harmoniaNodeSize.Y;
                                 }
                                 else
                                 {
                                     xOffset += biggest;
-                                    childPosition.X = xOffset;
-                                    childPosition.Y = nodeOffsetY;
-                                    yOffset = nodeOffsetY + harmoniaNodeSize.Y;
-                                    currentLine.Y = harmoniaNodeSize.Y;
+                                    newChildPosition.X = xOffset;
+                                    newChildPosition.Y = baseOffsetY;
+                                    yOffset = baseOffsetY + harmoniaNodeSize.Y;
+                                    currentLine.Y = harmoniaNodeSize.Y + flexLayout.GapColumnPx;
 
                                     lineSizes.Add(new Vector2());
                                     lineNodes.Add([]);
@@ -96,25 +104,25 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
                             }
                             lineSizes[currentLineIndex] = new(biggest, lineSizes[currentLineIndex].Y + harmoniaNodeSize.Y);
                         }
-                        else if (flexLayout.Direction == FlexDirection.Row)
+                        else if (flexLayout.Direction == FlexDirection.Row) // This is basically the same as the one above, but just flipped.
                         {
-                            float childFitDiff = (harmoniaNodeSize.X) - (contentSize.X - currentLine.X);
-                            bool childFitsX = childFitDiff < 0 || childFitDiff <= 0.5f;
                             if (wrapping)
                             {
+                                float childFitDiff = (harmoniaNodeSize.X) - (contentSize.X - currentLine.X);
+                                bool childFitsX = (childFitDiff) < 0 || (childFitDiff) <= 0.5f;
                                 if (childFitsX)
                                 {
-                                    currentLine.X += harmoniaNodeSize.X;
+                                    currentLine.X += harmoniaNodeSize.X + flexLayout.GapRowPx;
                                     biggest = MathF.Max(harmoniaNodeSize.Y, biggest);
                                     xOffset += harmoniaNodeSize.X;
                                 }
                                 else
                                 {
                                     yOffset += biggest;
-                                    childPosition.Y = yOffset;
-                                    childPosition.X = nodeOffsetX;
-                                    xOffset = nodeOffsetX + harmoniaNodeSize.X;
-                                    currentLine.X = harmoniaNodeSize.X;
+                                    newChildPosition.Y = yOffset;
+                                    newChildPosition.X = baseOffsetX;
+                                    xOffset = baseOffsetX + harmoniaNodeSize.X;
+                                    currentLine.X = harmoniaNodeSize.X + flexLayout.GapRowPx;
                                     lineSizes[currentLineIndex] = new(lineSizes[currentLineIndex].X, biggest);
 
                                     lineSizes.Add(new Vector2());
@@ -127,13 +135,12 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
                                 xOffset += harmoniaNodeSize.X;
                                 biggest = MathF.Max(harmoniaNodeSize.Y, biggest);
                             }
-                            lineSizes[currentLineIndex] = new(lineSizes[currentLineIndex].X + harmoniaNodeSize.X, biggest);
+                            lineSizes[currentLineIndex] = new(
+                                lineSizes[currentLineIndex].X + harmoniaNodeSize.X, 
+                                biggest);
                         }
 
-                        harmoniaNode.GlobalPosition = new Vector2(
-                            childPosition.X + harmoniaNode.ComputedStyle.Margin.Left,
-                            childPosition.Y + harmoniaNode.ComputedStyle.Margin.Top
-                        );
+                        harmoniaNode.GlobalPosition = newChildPosition;
                         lineNodes[currentLineIndex].Add(harmoniaNode);
                     }
                     else if (child is Control godotNode)
@@ -166,10 +173,6 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
                 }
             }
 
-            Vector2 viewportSize = ViewportHelper.GetViewportSize(node);
-            float gapRow = StyleComputer.GetPixel(flexLayout.GapRow, viewportSize, contentSize, contentSize.X, 0);
-            float gapColumn = StyleComputer.GetPixel(flexLayout.GapColumn, viewportSize, contentSize, contentSize.Y, 0);
-
             for (int i = 0; i < lineSizes.Length; i++)
             {
                 Vector2 availableSpace;
@@ -177,15 +180,15 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
                 if (flexLayout.Direction == FlexDirection.Row)
                 {
                     availableSpace = contentSize - new Vector2(
-                        lineSizes[i].X + gapRow * (children.Count-1), 
-                        directionalSum + gapColumn * (lineSizes.Length - 1)
+                        lineSizes[i].X + (flexLayout.GapRowPx * (children.Count - 1)), 
+                        directionalSum + flexLayout.GapColumnPx * (lineSizes.Length - 1)
                     );
                 }
                 else
                 {
                     availableSpace = contentSize - new Vector2(
-                        directionalSum + gapRow * (lineSizes.Length - 1),
-                        lineSizes[i].Y + gapColumn * (children.Count - 1));
+                        directionalSum + flexLayout.GapRowPx * (lineSizes.Length - 1),
+                        lineSizes[i].Y + flexLayout.GapColumnPx * (children.Count - 1));
                 }
 
                 for (int j = 0; j < children.Count; j++)
@@ -201,8 +204,8 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
                     {
                         child.GlobalPosition = new()
                         {
-                            X = child.GlobalPosition.X + (gapRow * j),
-                            Y = child.GlobalPosition.Y + (gapColumn * i)
+                            X = child.GlobalPosition.X + (flexLayout.GapRowPx * j),
+                            Y = child.GlobalPosition.Y + (flexLayout.GapColumnPx * i)
                         };
                         spacingX = GetPositionWithSpacing(flexLayout.JustifyX, child.GlobalPosition.X, availableSpace.X, children.Count, j);
                         spacingY = GetPositionWithSpacing(flexLayout.JustifyY, child.GlobalPosition.Y, availableSpace.Y, lineSizes.Length, i);
@@ -211,8 +214,8 @@ namespace HarmoniaUI.Core.Engines.Layout.Flex
                     {
                         child.GlobalPosition = new()
                         {
-                            X = child.GlobalPosition.X + (gapRow * i),
-                            Y = child.GlobalPosition.Y + (gapColumn * j)
+                            X = child.GlobalPosition.X + (flexLayout.GapRowPx * i),
+                            Y = child.GlobalPosition.Y + (flexLayout.GapColumnPx * j)
                         };
                         spacingX = GetPositionWithSpacing(flexLayout.JustifyX, child.GlobalPosition.X, availableSpace.X, lineSizes.Length, i);
                         spacingY = GetPositionWithSpacing(flexLayout.JustifyY, child.GlobalPosition.Y, availableSpace.Y, children.Count, j);

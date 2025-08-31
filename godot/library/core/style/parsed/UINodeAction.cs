@@ -17,10 +17,12 @@ namespace HarmoniaUI.Core.Style.Parsed
         /// The node doesn't need to perform any action
         /// </summary>
         None = 0,
+        
         /// <summary>
         /// The node should call for a redraw (using <see cref="Godot.CanvasItem.QueueRedraw"/>
         /// </summary>
         Redraw = 1,
+        
         /// <summary>
         /// The node should call for updating the layout
         /// </summary>
