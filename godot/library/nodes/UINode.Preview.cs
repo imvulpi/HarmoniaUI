@@ -90,6 +90,7 @@ namespace HarmoniaUI.Nodes
                     StyleComputer.Compute(ComputedStyle, CurrentStyle, viewportSize, parentSize);
                     LayoutEngine.ComputeSize(this, ComputedStyle, RawCurrentStyle.LayoutResource);
                     LayoutEngine.ApplyLayout(this, ComputedStyle, RawCurrentStyle.LayoutResource);
+                    UpdateOverflows();
                     QueueRedraw();
                 }
             }

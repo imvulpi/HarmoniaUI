@@ -46,7 +46,7 @@ namespace HarmoniaUI.Core.Engines.Layout
                 node.GlobalPosition = new Vector2(style.PositionX, style.PositionY);
             }
 
-            var children = node.GetChildren();
+            var children = node.GetRelatedChildren();
             float xOffset = node.GlobalPosition.X + style.Padding.Left + style.BorderWidth.Left;
             float yOffset = node.GlobalPosition.Y + style.Padding.Top + style.BorderWidth.Top;
             foreach (var child in children)

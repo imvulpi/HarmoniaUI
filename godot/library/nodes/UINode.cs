@@ -1,14 +1,16 @@
 using Godot;
+using Godot.Collections;
 using HarmoniaUI.Commons;
+using HarmoniaUI.Core.Engines.Input;
 using HarmoniaUI.Core.Engines.Layout;
 using HarmoniaUI.Core.Engines.Registry;
 using HarmoniaUI.Core.Engines.Visual;
 using HarmoniaUI.Core.Style.Computed;
+using HarmoniaUI.Core.Style.Merger;
 using HarmoniaUI.Core.Style.Parsed;
 using HarmoniaUI.Core.Style.Raw;
-using HarmoniaUI.Core.Style.Merger;
+using HarmoniaUI.Library.Nodes;
 using System;
-using HarmoniaUI.Core.Engines.Input;
 
 namespace HarmoniaUI.Nodes
 {
@@ -242,6 +244,13 @@ namespace HarmoniaUI.Nodes
         private ParsedStyle _mergingCache = new();
 
         /// <summary>
+        /// Calculated Overflows of children.
+        /// </summary>
+        private Vector2 Overflows { get; set; }
+
+        private ScrollNode ScrollNode { get; set; } = null;
+
+        /// <summary>
         /// In the <see cref="UINode"/> it sets defaults, creates, parses and computes styles, gets engines and computes sizes.
         /// </summary>
         public override void _EnterTree()
@@ -419,8 +428,7 @@ namespace HarmoniaUI.Nodes
         public virtual void UpdateLayout()
         {
             if(IsRoot()) ApplyStyle();
-
-            foreach (var child in GetChildren())
+            foreach (var child in GetRelatedChildren())
             {
                 if (child is UINode harmonia)
                 {
@@ -430,7 +438,83 @@ namespace HarmoniaUI.Nodes
             }
 
             LayoutEngine.ApplyLayout(this, ComputedStyle, CurrentStyle.LayoutResource);
+            UpdateOverflows();
+            if (ScrollNode != null)
+            {
+                ScrollNode.Size = new Vector2(ContentWidth, ContentHeight);
+                ScrollNode.UpdateLayout();
+            }
             QueueRedraw();
+        }
+
+        public virtual void UpdateOverflows()
+        {
+            if (Engine.IsEditorHint()) return;
+            var children = GetRelatedChildren();
+            if (children.Count == 0) return;
+            Vector2 contentSize = new(ContentWidth, ContentHeight);
+            Vector2 contentPosition = new(ComputedStyle.Padding.Left, ComputedStyle.Padding.Top);
+
+            Vector2 negativeOverflows = contentPosition;
+            Vector2 positiveOverflows = contentSize;
+
+            foreach (var child in children)
+            {
+                if (child is Control control)
+                {
+                    if (control.Position.X < negativeOverflows.X)
+                        negativeOverflows.X = control.Position.X;
+                    if (control.Position.Y < negativeOverflows.Y)
+                        negativeOverflows.Y = control.Position.Y;
+
+                    float sumX = control.Position.X - contentPosition.X + control.Size.X;
+                    float sumY = control.Position.Y - contentPosition.Y + control.Size.Y;
+                    if (sumX > positiveOverflows.X)
+                        positiveOverflows.X = sumX;
+                    if (sumY > positiveOverflows.Y)
+                        positiveOverflows.Y = sumY;
+                }
+            }
+
+            if (negativeOverflows != contentPosition || positiveOverflows != contentSize)
+            {
+                Overflows = positiveOverflows - contentSize + (contentPosition - negativeOverflows);
+                if (ScrollNode != null)
+                {
+                    ScrollNode.Overflows = Overflows;
+                    ScrollNode.NegativeOverflows = negativeOverflows;
+                    Size = new(ContentWidth, ContentHeight);
+                    return;
+                }
+
+                ScrollNode = new ScrollNode()
+                {
+                    Overflows = Overflows,
+                    NegativeOverflows = negativeOverflows,
+                    Size = new(ContentWidth, ContentHeight)
+                };
+
+                AddChild(ScrollNode);
+
+                for (int i = 0; i < children.Count; i++)
+                {
+                    Node child = children[i];
+                    child.Reparent(ScrollNode);
+                }
+                ScrollNode.UpdateLayout();
+            }
+            else
+            {
+                if (ScrollNode != null)
+                {
+                    foreach (Node child in children)
+                    {
+                        child.Reparent(this);
+                    }
+                    RemoveChild(ScrollNode);
+                    ScrollNode = null;
+                }
+            }
         }
 
         /// <summary>
@@ -463,6 +547,13 @@ namespace HarmoniaUI.Nodes
                 if (parent is UINode harmoniaNode)
                 {
                     return harmoniaNode;
+                }
+                else if (parent is ScrollNode scrollNode)
+                {
+                    scrollNode.SetAnchorsPreset(LayoutPreset.FullRect);
+                    var scrollNodeParent = scrollNode.GetParent();
+                    if (scrollNodeParent is UINode node) return node;
+                    else return null;
                 }
                 else if (parent is Control controlNode)
                 {
@@ -497,6 +588,13 @@ namespace HarmoniaUI.Nodes
             }
 
             return true;
+        }
+
+        public Array<Node> GetRelatedChildren()
+        {
+            if (ScrollNode != null)
+                return ScrollNode.GetChildren();
+            return GetChildren();
         }
 
         /// <summary>
